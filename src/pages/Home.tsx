@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Lanyard from '../components/Lanyard';
 import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
+import LightRays from '../components/LightRays';
+
 
 interface MainProject {
   title: string;
@@ -217,6 +219,21 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-32">
+      {/* Dynamic ambient light rays above the navbar */}
+      <div className="absolute top-0 left-0 right-0 h-[650px] pointer-events-none overflow-hidden z-[101]">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#f46c38"
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={1.5}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
+        />
+      </div>
+
       {/* Hero Section */}
       <section data-purpose="hero" className="pt-4 lg:pt-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start mb-20">
