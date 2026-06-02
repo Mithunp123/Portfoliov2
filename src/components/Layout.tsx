@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import LottieLoader from './LottieLoader';
 
 const Layout: React.FC = () => {
   return (
@@ -49,9 +50,12 @@ const Layout: React.FC = () => {
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-[#25d366] transition-all duration-300 relative group flex items-center justify-center p-2 rounded-full hover:bg-[#25d366]/10 hover:shadow-[0_0_15px_rgba(37,211,102,0.3)]"
         >
-          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.324 5.328 0 11.859 0c3.166.001 6.141 1.233 8.377 3.469 2.235 2.237 3.466 5.213 3.466 8.377 0 6.533-5.325 11.858-11.857 11.858-2.004-.001-3.973-.509-5.716-1.478L0 24zm6.549-3.791c1.558.925 3.125 1.414 4.743 1.415 5.536 0 10.04-4.503 10.04-10.038C21.387 6.05 17.135 2.001 11.86 2c-5.277 0-9.57 4.293-9.57 9.57 0 1.666.443 3.29 1.284 4.737L2.557 20.54l4.049-1.331z"/>
-          </svg>
+          <LottieLoader 
+            url="/lottie/Whatsapp.json" 
+            style={{ width: '28px', height: '28px' }} 
+            fallbackIcon="chat" 
+            fallbackColor="text-[#25d366]" 
+          />
           {/* Tooltip */}
           <div className="absolute left-14 bg-neutral-900 border border-white/10 text-white text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
             WhatsApp
@@ -60,7 +64,7 @@ const Layout: React.FC = () => {
       </div>
       
       {/* Centered main container layout */}
-      <div className="max-w-[1300px] mx-auto w-full px-6 lg:px-12 pt-24 lg:pt-20">
+      <div className="max-w-[1300px] mx-auto w-full px-6 lg:px-12 pt-36 lg:pt-40">
         
         {/* Main Column (Scrollable content) */}
         <main className="py-6 lg:py-16 min-h-screen flex flex-col justify-between">

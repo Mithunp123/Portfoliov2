@@ -11,14 +11,14 @@ const Tools: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    budget: '',
+    scope: 'Select range...',
     message: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you ${formData.name}! Your message has been sent successfully.`);
-    setFormData({ name: '', email: '', budget: '', message: '' });
+    alert(`Thank you ${formData.name}! Your message has been sent successfully to Mithun P.`);
+    setFormData({ name: '', email: '', scope: 'Select range...', message: '' });
   };
 
   const tools: Tool[] = [
@@ -128,91 +128,82 @@ const Tools: React.FC = () => {
 
       {/* Let's Work Together Section */}
       <section id="contact">
-        <div className="mb-16">
+        <div className="mb-12">
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">Let's Work</h2>
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Together</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8" method="POST">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Name Field */}
-            <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-widest text-onyx-text-dim" htmlFor="name">Name</label>
-              <input 
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full border-transparent rounded-xl px-5 py-4 text-white placeholder-onyx-text-dim/40 form-input-focus transition-all bg-[#111] border border-white/5 focus:outline-none focus:border-[#f46c38] font-body-md" 
-                id="name" 
-                placeholder="Your Name" 
-                type="text" 
-              />
-            </div>
-            {/* Email Field */}
-            <div className="space-y-3">
-              <label className="text-xs font-bold uppercase tracking-widest text-onyx-text-dim" htmlFor="email">Email</label>
-              <input 
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full border-transparent rounded-xl px-5 py-4 text-white placeholder-onyx-text-dim/40 form-input-focus transition-all bg-[#111] border border-white/5 focus:outline-none focus:border-[#f46c38] font-body-md" 
-                id="email" 
-                placeholder="Your@email.com" 
-                type="email" 
-              />
-            </div>
-          </div>
-          {/* Budget Selection */}
-          <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-widest text-onyx-text-dim" htmlFor="budget">Budget/Scope</label>
-            <div className="relative">
-              <select 
-                value={formData.budget}
-                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                className="w-full border-transparent rounded-xl px-5 py-4 text-white appearance-none cursor-pointer form-input-focus transition-all bg-[#111] border border-white/5 focus:outline-none focus:border-[#f46c38] font-body-md" 
-                id="budget"
-              >
-                <option value="">Select...</option>
-                <option value="freelance">Freelance Collaboration</option>
-                <option value="fulltime">Full-time Roles</option>
-                <option value="research">Academic / Research Partnerships</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-onyx-text-dim">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                </svg>
+        <div className="glass-card p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden">
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
+          
+          <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Your Name</label>
+                <input 
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  placeholder="Enter name" 
+                  type="text" 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Email Address</label>
+                <input 
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  placeholder="name@domain.com" 
+                  type="email" 
+                />
               </div>
             </div>
-          </div>
-          {/* Message Field */}
-          <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-widest text-onyx-text-dim" htmlFor="message">Message</label>
-            <textarea 
-              required
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full border-transparent rounded-xl px-5 py-4 text-white placeholder-onyx-text-dim/40 form-input-focus transition-all resize-none bg-[#111] border border-white/5 focus:outline-none focus:border-[#f46c38] font-body-md" 
-              id="message" 
-              placeholder="Message" 
-              rows={5} 
-            />
-          </div>
-          {/* Submit Button */}
-          <button 
-            className="w-full bg-[#f46c38] hover:bg-[#e05a2d] text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#f46c38]/20 active:scale-[0.98] uppercase tracking-widest text-xs" 
-            type="submit"
-          >
-            Submit
-          </button>
-        </form>
+            
+            <div className="space-y-2">
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Project Scope</label>
+              <select 
+                value={formData.scope}
+                onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
+                className="w-full bg-[#151312] border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white cursor-pointer transition-all font-body-md"
+              >
+                <option value="Select range...">Select range...</option>
+                <option value="Freelance Consultation">Freelance Consultation</option>
+                <option value="Full-stack Integration">Full-stack Integration</option>
+                <option value="AI / ML Development">AI / ML Development</option>
+              </select>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Message</label>
+              <textarea 
+                required
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 resize-none transition-all font-body-md" 
+                placeholder="Describe your project goals..." 
+                rows={5}
+              />
+            </div>
+            
+            <button 
+              className="w-full bg-[#f46c38] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#f46c38]/20" 
+              type="submit"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
       </section>
 
       {/* Footer Credits */}
-      <footer className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-onyx-text-dim gap-4 mt-20 font-bold uppercase tracking-widest text-[10px]">
+      <footer className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
         <p>© 2026 Mithun P. Crafted with React &amp; Tailwind CSS</p>
         <div className="flex space-x-8">
           <a className="hover:text-white transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a className="hover:text-white transition-colors" href="https://linkedin.com/in/mithun-p2006/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a className="hover:text-white transition-colors" href="https://linkedin.com/in/mithun-p-0100782a2" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </footer>
     </div>

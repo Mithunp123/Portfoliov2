@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Lanyard from '../components/Lanyard';
+import LottieLoader from '../components/LottieLoader';
+import GradientText from '../components/GradientText/GradientText';
 
 interface MainProject {
   title: string;
@@ -59,6 +61,12 @@ const previewTools: PreviewTool[] = [
     iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
   },
   {
+    name: "Flask",
+    category: "Backend Dev",
+    bgColor: "bg-gray-400/10",
+    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
+  },
+  {
     name: "Power BI",
     category: "Dashboards & BI",
     bgColor: "bg-yellow-400/10",
@@ -71,6 +79,12 @@ const previewTools: PreviewTool[] = [
     iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
   },
   {
+    name: "Tailwind CSS",
+    category: "Modern CSS",
+    bgColor: "bg-teal-400/10",
+    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+  },
+  {
     name: "JavaScript",
     category: "Logic & Code",
     bgColor: "bg-yellow-500/10",
@@ -81,6 +95,12 @@ const previewTools: PreviewTool[] = [
     category: "Cloud Database",
     bgColor: "bg-emerald-400/10",
     iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg"
+  },
+  {
+    name: "Three.js",
+    category: "3D Graphics",
+    bgColor: "bg-white/10",
+    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
   }
 ];
 
@@ -159,8 +179,8 @@ const Home: React.FC = () => {
       const translateX = homeCenterX - parentCenterX;
       
       // Vertical translation to align top of Lanyard Canvas with Navbar Home icon bottom
-      // Using a small vertical overlap (12px) for continuous visual strap flow
-      const translateY = (homeRect.bottom - 12) - parentRect.top;
+      // Using an increased vertical overlap (28px) to pull the strap higher upwards
+      const translateY = (homeRect.bottom - 28) - parentRect.top;
       
       setAlignmentStyle({
         transform: `translate(${translateX}px, ${translateY}px)`,
@@ -203,7 +223,7 @@ const Home: React.FC = () => {
           {/* Interactive 3D Lanyard Canvas (Floating seamlessly without container) */}
           <div 
             ref={lanyardParentRef}
-            className="w-full lg:w-[550px] h-[750px] shrink-0 relative flex items-center justify-center"
+            className="w-full lg:w-[550px] h-[680px] shrink-0 relative flex items-center justify-center"
           >
             <div 
               ref={lanyardContainerRef} 
@@ -220,12 +240,26 @@ const Home: React.FC = () => {
               <div className="mb-8 space-y-4 -ml-6">
                 <div className="w-fit border border-transparent hover:border-white py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
-                    Software
+                    <GradientText
+                      colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                      animationSpeed={4}
+                      showBorder={false}
+                      className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none"
+                    >
+                      Software
+                    </GradientText>
                   </h2>
                 </div>
                 <div className="w-fit border border-transparent hover:border-white py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
-                  <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter text-outline">
-                    Engineer
+                  <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
+                    <GradientText
+                      colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                      animationSpeed={4}
+                      showBorder={false}
+                      className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none"
+                    >
+                      Engineer
+                    </GradientText>
                   </h2>
                 </div>
               </div>
@@ -300,9 +334,12 @@ const Home: React.FC = () => {
                     className="w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-[#25d366] flex items-center justify-center transition-all duration-300 hover:bg-white/10"
                     title="WhatsApp"
                   >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.324 5.328 0 11.859 0c3.166.001 6.141 1.233 8.377 3.469 2.235 2.237 3.466 5.213 3.466 8.377 0 6.533-5.325 11.858-11.857 11.858-2.004-.001-3.973-.509-5.716-1.478L0 24zm6.549-3.791c1.558.925 3.125 1.414 4.743 1.415 5.536 0 10.04-4.503 10.04-10.038C21.387 6.05 17.135 2.001 11.86 2c-5.277 0-9.57 4.293-9.57 9.57 0 1.666.443 3.29 1.284 4.737L2.557 20.54l4.049-1.331z"/>
-                    </svg>
+                    <LottieLoader 
+                      url="/lottie/Whatsapp.json" 
+                      style={{ width: '28px', height: '28px' }} 
+                      fallbackIcon="chat" 
+                      fallbackColor="text-[#25d366]" 
+                    />
                   </a>
                 </div>
               </div>
@@ -436,7 +473,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-4 sm:gap-x-12 gap-y-6 sm:gap-y-8 max-w-[850px] mx-auto pl-4 sm:pl-8 lg:pl-16">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-12 gap-y-6 sm:gap-y-8 max-w-[1100px] mx-auto pl-4 sm:pl-8 lg:pl-16">
           {previewTools.map((tool, idx) => (
             <div 
               key={idx} 

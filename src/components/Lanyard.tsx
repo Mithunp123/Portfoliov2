@@ -120,63 +120,110 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
 
   const { nodes, materials } = useGLTF(cardGLB) as any;
   const texture = useTexture(lanyard);
-  
+  const baseTexture = useTexture('/Mithun.png');
+
   const [cardTexture, setCardTexture] = useState<THREE.CanvasTexture | null>(null);
+
+  useEffect(() => {
+    if (baseTexture) {
+      baseTexture.flipY = false;
+      baseTexture.wrapS = THREE.ClampToEdgeWrapping;
+      baseTexture.wrapT = THREE.ClampToEdgeWrapping;
+      baseTexture.repeat.set(1.0, 1.0);
+      baseTexture.offset.set(0.22, 0.0);
+      baseTexture.needsUpdate = true;
+    }
+  }, [baseTexture]);
 
   useEffect(() => {
     const img = new Image();
     img.src = '/Mithun.png';
-    img.crossOrigin = 'anonymous';
     img.onload = () => {
+      console.log("Canvas Image loaded successfully!");
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        // Draw standard portrait image
+        // Draw base image
         ctx.drawImage(img, 0, 0);
 
-        // Premium dynamic typography proportional to image width
-        const fontSize = Math.round(img.width * 0.035);
-        ctx.font = `800 ${fontSize}px "Plus Jakarta Sans", "Inter", sans-serif`;
+        // Define card horizontal and vertical boundaries based on UV coordinate mapping
+        const leftBoundary = img.width * 0.22;
+        const rightBoundary = img.width * 0.715;
         
-        // Deep legible drop shadow
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-        ctx.shadowBlur = 12;
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 2;
-        ctx.fillStyle = '#ffffff';
+        // Vertical coordinate mapping the text further down to the absolute bottom area of the card
+        const textCenterY = img.height * 0.70; 
 
-        // Aligning inside the visible horizontal boundaries of the card (offset: 0.22)
-        const bottomY = img.height - (img.height * 0.08); // 8% from the bottom
+        // Draw Typography
+        const fontSize = Math.round(img.width * 0.021);
+        ctx.font = `800 ${fontSize}px "Inter", "Plus Jakarta Sans", "Segoe UI", sans-serif`;
+        ctx.textBaseline = 'middle';
+
+        // Create the identical premium saffron-to-gold linear gradient matching <GradientText />
+        const textGrad = ctx.createLinearGradient(leftBoundary, 0, rightBoundary, 0);
+        textGrad.addColorStop(0, '#f46c38');
+        textGrad.addColorStop(0.25, '#ffb347');
+        textGrad.addColorStop(0.5, '#f46c38');
+        textGrad.addColorStop(0.75, '#ffb347');
+        textGrad.addColorStop(1, '#f46c38');
+
+        // Draw the background container capsule for contrast and readability
+        const containerHeight = fontSize * 2.2;
+        const containerY = textCenterY - (containerHeight / 2);
+        const containerWidth = rightBoundary - leftBoundary;
+        const paddingX = img.width * 0.015;
+
+        ctx.fillStyle = 'rgba(12, 12, 14, 0.88)'; // Premium rich dark backplate
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; // Delicate glass border
+        ctx.lineWidth = Math.max(1, img.width * 0.0015);
         
-        // Draw @Software Engineer on the left
-        const leftText = '@Software Engineer';
-        const leftX = img.width * 0.27;
-        ctx.fillText(leftText, leftX, bottomY);
+        ctx.beginPath();
+        if (typeof (ctx as any).roundRect === 'function') {
+          (ctx as any).roundRect(leftBoundary + paddingX, containerY, containerWidth - (paddingX * 2), containerHeight, Math.round(fontSize * 0.5));
+        } else {
+          ctx.rect(leftBoundary + paddingX, containerY, containerWidth - (paddingX * 2), containerHeight);
+        }
+        ctx.fill();
+        ctx.stroke();
 
-        // Draw @Mihun_P on the right
-        const rightText = '@Mihun_P';
-        const textWidth = ctx.measureText(rightText).width;
-        const rightX = img.width * 0.92 - textWidth;
-        ctx.fillText(rightText, rightX, bottomY);
+        // Left side text: @ SOFTWARE ENGINEER
+        const leftTextX = leftBoundary + paddingX + (img.width * 0.018);
+        ctx.fillStyle = '#f46c38'; // Keeps the @ symbol in orange as requested
+        ctx.fillText('@', leftTextX, textCenterY);
+        const atWidth = ctx.measureText('@').width;
+        ctx.fillStyle = textGrad; // Shifting gradient color for the words
+        ctx.fillText('SOFTWARE ENGINEER', leftTextX + atWidth + 4, textCenterY);
 
-        // Reset shadow parameters
-        ctx.shadowBlur = 0;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
+        // Right side text: @ MITHUN_P
+        const rightTextSymbol = '@';
+        const rightTextName = 'MITHUN_P';
+        const nameWidth = ctx.measureText(rightTextName).width;
+        const rightAtWidth = ctx.measureText(rightTextSymbol).width;
+        const rightTextX = (rightBoundary - paddingX - (img.width * 0.018)) - nameWidth - rightAtWidth - 4;
 
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.flipY = false;
-        texture.wrapS = THREE.ClampToEdgeWrapping;
-        texture.wrapT = THREE.ClampToEdgeWrapping;
-        texture.repeat.set(1.0, 1.0);
-        texture.offset.set(0.22, 0.0);
+        ctx.fillStyle = '#f46c38'; // Keeps the @ symbol in orange as requested
+        ctx.fillText(rightTextSymbol, rightTextX, textCenterY);
+        ctx.fillStyle = textGrad; // Shifting gradient color for the words
+        ctx.fillText(rightTextName, rightTextX + rightAtWidth + 4, textCenterY);
+
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.flipY = false;
+        tex.wrapS = THREE.ClampToEdgeWrapping;
+        tex.wrapT = THREE.ClampToEdgeWrapping;
+        tex.repeat.set(1.0, 1.0);
+        tex.offset.set(0.22, 0.0);
+        tex.needsUpdate = true;
         
-        setCardTexture(texture);
+        console.log("Setting cardTexture successfully!");
+        setCardTexture(tex);
       }
     };
+    img.onerror = (err) => {
+      console.error("Failed to load Mithun.png in Canvas texture loader:", err);
+    };
   }, []);
+
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -184,9 +231,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   const [dragged, drag] = useState<false | THREE.Vector3>(false);
   const [hovered, hover] = useState(false);
 
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 0.78]);
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 0.78]);
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 0.78]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
     [0, 1.45, 0]
@@ -240,17 +287,17 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
     <>
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type={'fixed' as RigidBodyProps['type']} />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+        <RigidBody position={[0.35, 0, 0]} ref={j1} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+        <RigidBody position={[0.7, 0, 0]} ref={j2} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
+        <RigidBody position={[1.05, 0, 0]} ref={j3} {...segmentProps} type={'dynamic' as RigidBodyProps['type']}>
           <BallCollider args={[0.1]} />
         </RigidBody>
         <RigidBody
-          position={[2, 0, 0]}
+          position={[1.4, 0, 0]}
           ref={card}
           {...segmentProps}
           type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
@@ -272,7 +319,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           >
             <mesh geometry={nodes.card.geometry} scale={[1.45, 1.35, 1]} position={[0, -0.39, 0]}>
               <meshPhysicalMaterial
-                map={cardTexture || materials.base.map}
+                map={cardTexture || baseTexture}
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
@@ -280,6 +327,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
                 metalness={0.8}
               />
             </mesh>
+
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
           </group>
