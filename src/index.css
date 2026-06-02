@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #f46c38;
+  --color-brand-orange: #f46c38;
+  --color-onyx-orange: #f46c38;
+  --color-primary-container: #f46c38;
+  
+  --color-surface: #151312;
+  --color-onyx-black: #151312;
+  --color-background: #151312;
+  --color-onyx-bg: #0c0c0c;
+  
+  --color-surface-dim: #0a0908;
+  --color-surface-bright: #1d1b1a;
+  
+  --color-surface-container: #151312;
+  --color-surface-container-lowest: #100e0d;
+  --color-surface-container-low: #1d1b1a;
+  --color-surface-container-high: #2c2928;
+  --color-surface-container-highest: #373433;
+  --color-surface-elevated: #1c1a19;
+  
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #e0c0b5;
+  --color-on-background: #e7e1df;
+  
+  --color-muted-text: #998f8f;
+  --color-brand-grey: #8a8a8a;
+  --color-onyx-gray: #2d2d2d;
+  --color-onyx-text-dim: #a1a1a1;
+  
+  --color-ghost-white: rgba(255, 255, 255, 0.1);
+  --color-input-bg: #262626;
+
+  --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-body-md: 'Inter', sans-serif;
+  --font-body-lg: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #0c0c0c;
+  color: #ffffff;
+  font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0c0c;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f46c38;
+}
+
+/* Selection Highlight */
+::selection {
+  background: #f46c38;
+  color: white;
+}
+
+/* Outlined text effect for large headers */
+.text-outline {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+
+/* Premium layout helper classes */
+.glass-card {
+  background: rgba(21, 19, 18, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(244, 108, 56, 0.3);
+  background: rgba(21, 19, 18, 0.6);
+}
+
+.nav-pill {
+  background: rgba(21, 19, 18, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Radial dot grid patterns (dotted arcs) */
+.dotted-arc {
+  background-image: radial-gradient(circle at center, #f46c38 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  mask-image: radial-gradient(circle at 100% 100%, black 69%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 100% 100%, black 69%, transparent 70%);
+}
+.dotted-arc-bottom {
+  mask-image: radial-gradient(circle at 0% 0%, black 69%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 0% 0%, black 69%, transparent 70%);
+}
+
+.flame-glow {
+  box-shadow: 0 0 20px 2px rgba(244, 108, 56, 0.4);
+}
+
+/* Journey cards - Uniform professional sizing */
+.journey-card {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Line clamp utility for journey card descriptions */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
