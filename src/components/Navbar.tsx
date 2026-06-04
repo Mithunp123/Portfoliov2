@@ -89,6 +89,21 @@ const Navbar: React.FC = () => {
           </div>
         </NavLink>
 
+        {/* Experience Link */}
+        <NavLink 
+          to="/experience" 
+          className={({ isActive }) => 
+            `transition-colors flex flex-col items-center p-2 rounded-full hover:scale-110 duration-200 relative group ${
+              isActive ? 'text-[#f46c38]' : 'text-gray-400 hover:text-white'
+            }`
+          }
+        >
+          <span className="material-symbols-outlined text-[22px]">work</span>
+          <div className="absolute top-12 bg-neutral-900 border border-white/10 text-white text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
+            Experience
+          </div>
+        </NavLink>
+
         {/* Projects Link */}
         <NavLink 
           to="/projects" 

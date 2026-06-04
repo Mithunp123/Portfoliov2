@@ -114,7 +114,12 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
         },
         {
           name: 'Flask',
-          iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg'
+          iconSvg: (
+            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current stroke-2 text-gray-300 shrink-0" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 3h12M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3" />
+              <path d="M6 14h12" />
+            </svg>
+          )
         },
         {
           name: 'Java',
@@ -138,15 +143,7 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
           name: 'MongoDB',
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
         },
-        {
-          name: 'Prisma',
-          iconSvg: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-white shrink-0">
-              <path d="M12 24a1.49 1.49 0 01-.65-.15L1.83 18.7a1.5 1.5 0 01-.73-1.3V5.6a1.5 1.5 0 01.73-1.3L11.35.15a1.5 1.5 0 011.3 0L22.17 5.6a1.5 1.5 0 01.73 1.3V17.4a1.5 1.5 0 01-.73 1.3l-9.52 5.15a1.49 1.49 0 01-.65.15zM2.6 17L12 22.1l9.4-5.1V7L12 1.9 2.6 7v10z"/>
-              <path d="M12 1.9V22.1L21.4 17V7z"/>
-            </svg>
-          )
-        },
+
         {
           name: 'Supabase',
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg'
@@ -165,10 +162,7 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
           name: 'Git',
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg'
         },
-        {
-          name: 'Docker',
-          iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'
-        },
+
         {
           name: 'Vercel',
           iconSvg: (
@@ -308,8 +302,8 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
     }
   ];
 
-  // Render first 4 categories for Home page preview, and all for Tools page
-  const visibleCategories = previewOnly ? categories.slice(0, 4) : categories;
+  // Render all categories for both Home and Tools pages
+  const visibleCategories = categories;
 
   return (
     <div className="space-y-10 sm:space-y-14 md:space-y-16">

@@ -7,6 +7,7 @@ import Projects from './pages/Projects';
 import Tools from './pages/Tools';
 import Blog from './pages/Blog';
 import Honors from './pages/Honors';
+import Experience from './pages/Experience';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="tools" element={<Tools />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="experience" element={<Experience />} />
           <Route path="honors" element={<Honors />} />
           {/* Catch-all redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />

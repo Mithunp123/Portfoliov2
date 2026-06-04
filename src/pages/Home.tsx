@@ -231,16 +231,27 @@ const Home: React.FC = () => {
             </div>
 
             {/* Stats & Resume Download */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-8 border-t border-white/5 pt-8">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between w-full gap-8 border-t border-white/5 pt-8">
               {/* Stats Block */}
-              <div className="flex gap-12 shrink-0">
+              <div className="flex flex-wrap gap-x-10 gap-y-6 sm:gap-x-12 shrink-0">
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">+3</div>
+                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">3+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Years Coding</div>
                 </div>
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">+12</div>
+                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">12+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Real Projects</div>
+                </div>
+                <div>
+                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">4+</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Clients Served</div>
+                </div>
+                <div>
+                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">10K+</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold leading-tight">
+                    Users Reached <br />
+                    <span className="text-gray-500 font-mono text-[8px] normal-case tracking-normal">via event platform</span>
+                  </div>
                 </div>
               </div>
 
@@ -492,85 +503,71 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Internship Completed Section — Two Internships */}
-      <section id="internship" className="relative">
-        <div className="mb-10">
-          <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">Internship</h2>
-          <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Completed</h2>
+      {/* Experience Section */}
+      <section id="experience" className="relative">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <div className="flex items-center gap-2.5 text-xs text-[#f46c38] font-bold uppercase tracking-[0.25em] mb-3">
+              <span className="material-symbols-outlined text-sm shrink-0 select-none animate-pulse">work</span>
+              <span>My Experience</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">Work</h2>
+            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">History</h2>
+          </div>
+          <Link 
+            to="/experience" 
+            className="text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
+          >
+            Full History 
+            <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </Link>
         </div>
 
-        <div className="border-t border-white/10 mt-8 divide-y divide-white/10">
-          {/* Google — AI & Machine Learning */}
-          <article className="py-10 relative group transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-xl">
-            {/* Content Area */}
-            <div className="space-y-3 w-full">
-              {/* Header Row: Title & Arrow */}
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-xl md:text-2xl font-black text-white group-hover:text-[#f46c38] transition-colors duration-300 leading-tight">
-                  AI & Machine Learning Internship
-                </h3>
-                <span className="material-symbols-outlined text-gray-600 group-hover:text-[#f46c38] transition-colors duration-300 transform group-hover:rotate-45 text-lg shrink-0 mt-1">
-                  north_east
-                </span>
-              </div>
-
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed max-w-3xl font-body-md font-medium group-hover:text-gray-300 transition-colors duration-500">
-                Completed a 10-week intensive AI & Machine Learning internship at Google, working on production neural network architectures, model optimization, and deploying inference pipelines for real-world applications.
-              </p>
-
-              {/* Footer Info Row */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-500 font-mono">
-                <div className="flex items-center gap-2">
-                  <span>Google</span>
-                  <span className="w-1.5 h-1.5 bg-gray-600 rounded-full"></span>
-                  <span>Virtual</span>
-                  <span className="w-1.5 h-1.5 bg-gray-600 rounded-full"></span>
-                  <span>Apr – Jun 2025</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-white font-mono tracking-[0.2em] bg-transparent border border-[#f46c38] px-3 py-1.5 rounded-full shrink-0">10 weeks</span>
-                  <span className="text-white font-mono tracking-[0.2em] bg-transparent border border-emerald-400 px-3 py-1.5 rounded-full shrink-0">Completed</span>
-                </div>
-              </div>
+        <div className="space-y-12">
+          {/* Gradix Technologies */}
+          <div className="group py-6 border-b border-white/[0.04] transition-all duration-300">
+            <div className="text-xs uppercase tracking-[0.15em] text-[#8a8a8a] font-bold mb-1">
+              Gradix Technologies
             </div>
-          </article>
-
-          {/* Gradix — Full Stack Web Development */}
-          <article className="py-10 relative group transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-xl">
-            {/* Content Area */}
-            <div className="space-y-3 w-full">
-              {/* Header Row: Title & Arrow */}
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-xl md:text-2xl font-black text-white group-hover:text-[#f46c38] transition-colors duration-300 leading-tight">
-                  Web Development Intern
-                </h3>
-                <span className="material-symbols-outlined text-gray-600 group-hover:text-[#f46c38] transition-colors duration-300 transform group-hover:rotate-45 text-lg shrink-0 mt-1">
-                  north_east
-                </span>
-              </div>
-
-              {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed max-w-3xl font-body-md font-medium group-hover:text-gray-300 transition-colors duration-500">
-                Contributing directly to live product modules at Gradix Technologies, building scalable full-stack web applications and gaining hands-on industry experience with the development team.
-              </p>
-
-              {/* Footer Info Row */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-2 text-[10px] font-extrabold uppercase tracking-widest text-gray-500 font-mono">
-                <div className="flex items-center gap-2">
-                  <span>Gradix Technologies</span>
-                  <span className="w-1.5 h-1.5 bg-gray-600 rounded-full"></span>
-                  <span>On-site • 3 Months</span>
-                  <span className="w-1.5 h-1.5 bg-gray-600 rounded-full"></span>
-                  <span>Mar – Jun 2026</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-white font-mono tracking-[0.2em] bg-transparent border border-cyan-400 px-3 py-1.5 rounded-full shrink-0">3 Months</span>
-                  <span className="text-white font-mono tracking-[0.2em] bg-transparent border border-emerald-400 px-3 py-1.5 rounded-full shrink-0">Completed</span>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
+                Web Developer <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Intern)</span>
+              </h3>
+              <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
+                Mar 2026 – Present
+              </span>
             </div>
-          </article>
+          </div>
+
+          {/* Dakshaa T26 */}
+          <div className="group py-6 border-b border-white/[0.04] transition-all duration-300">
+            <div className="text-xs uppercase tracking-[0.15em] text-[#8a8a8a] font-bold mb-1">
+              Dakshaa T26 Symposium
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
+                Backend Developer <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Product Development)</span>
+              </h3>
+              <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
+                2025 – 2026
+              </span>
+            </div>
+          </div>
+
+          {/* Google */}
+          <div className="group py-6 border-b border-white/[0.04] transition-all duration-300">
+            <div className="text-xs uppercase tracking-[0.15em] text-[#8a8a8a] font-bold mb-1">
+              Google
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
+                AI &amp; Machine Learning Intern <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Internship)</span>
+              </h3>
+              <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
+                Apr – Jun 2025
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
