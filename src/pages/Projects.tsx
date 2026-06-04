@@ -114,10 +114,10 @@ const Projects: React.FC = () => {
                 href={project.liveUrl}
                 target={project.liveUrl ? "_blank" : undefined}
                 rel={project.liveUrl ? "noopener noreferrer" : undefined}
-                className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-6 cursor-pointer"
+                className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-4 sm:gap-6 cursor-pointer"
               >
                 {/* Left Rounded Image */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
                   <img 
                     src={project.image} 
                     alt={project.title} 
@@ -148,7 +148,7 @@ const Projects: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Together</h2>
         </div>
 
-        <div className="glass-card p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden">
+        <div className="glass-card p-5 sm:p-8 lg:p-12 rounded-[1.8rem] sm:rounded-[2.5rem] relative overflow-hidden">
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">

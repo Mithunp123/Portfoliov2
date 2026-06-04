@@ -64,10 +64,10 @@ const Layout: React.FC = () => {
       </div>
       
       {/* Centered main container layout */}
-      <div className="max-w-[1300px] mx-auto w-full px-6 lg:px-12 pt-36 lg:pt-40">
+      <div className="max-w-[1300px] mx-auto w-full px-6 lg:px-12 pt-24 sm:pt-28 lg:pt-40">
         
         {/* Main Column (Scrollable content) */}
-        <main className="py-6 lg:py-16 min-h-screen flex flex-col justify-between">
+        <main className="py-6 lg:py-16 pb-24 lg:pb-16 min-h-screen flex flex-col justify-between">
           <div>
             <Outlet />
           </div>

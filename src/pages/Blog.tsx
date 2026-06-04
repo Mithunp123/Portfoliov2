@@ -100,7 +100,7 @@ const Blog: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Together</h2>
         </div>
 
-        <div className="glass-card p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden">
+        <div className="glass-card p-5 sm:p-8 lg:p-12 rounded-[1.8rem] sm:rounded-[2.5rem] relative overflow-hidden">
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">

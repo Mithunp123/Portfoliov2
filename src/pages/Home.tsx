@@ -6,6 +6,7 @@ import GradientText from '../components/GradientText/GradientText';
 import LightRays from '../components/LightRays';
 import SkillsSection from '../components/SkillsSection';
 import GitHubActivity from '../components/GitHubActivity';
+import MobileLanyard from '../components/MobileLanyard';
 
 
 interface MainProject {
@@ -177,22 +178,30 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section data-purpose="hero" className="pt-4 lg:pt-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start mb-20">
-          {/* Interactive 3D Lanyard Canvas (Floating seamlessly without container) */}
-          <div 
-            ref={lanyardParentRef}
-            className="w-full lg:w-[550px] h-[680px] shrink-0 relative flex items-center justify-center"
-          >
+          {/* Lanyard Visual Container - Rendered 2nd on mobile, 1st on desktop */}
+          <div className="w-full lg:w-[550px] order-2 lg:order-1 flex items-center justify-center shrink-0">
+            {/* Desktop 3D Canvas Lanyard */}
             <div 
-              ref={lanyardContainerRef} 
-              className="w-full h-full relative flex items-center justify-center transition-transform duration-100 ease-out"
-              style={alignmentStyle}
+              ref={lanyardParentRef}
+              className="hidden lg:flex w-full h-[680px] relative items-center justify-center"
             >
-              <Lanyard position={[0, 0, 14]} gravity={[0, -40, 0]} />
+              <div 
+                ref={lanyardContainerRef} 
+                className="w-full h-full relative flex items-center justify-center transition-transform duration-100 ease-out"
+                style={alignmentStyle}
+              >
+                <Lanyard position={[0, 0, 14]} gravity={[0, -40, 0]} />
+              </div>
+            </div>
+
+            {/* Mobile/Tablet 2D Lanyard Tilt Card */}
+            <div className="flex lg:hidden w-full max-w-[340px] h-[480px] justify-center items-center relative">
+              <MobileLanyard />
             </div>
           </div>
 
-          {/* Software Engineer Identity Content */}
-          <div className="flex-1 w-full flex flex-col justify-between min-h-[750px]">
+          {/* Software Engineer Identity Content - Rendered 1st on mobile, 2nd on desktop */}
+          <div className="flex-1 w-full flex flex-col justify-between min-h-[500px] lg:min-h-[750px] order-1 lg:order-2">
             <div>
               <div className="mb-8 space-y-4 -ml-6">
                 <div className="w-fit border border-transparent hover:border-white py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
@@ -399,10 +408,10 @@ const Home: React.FC = () => {
               href={project.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-6"
+              className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-4 sm:gap-6"
             >
               {/* Left Rounded Image */}
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
+              <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
                 <img 
                   src={project.image} 
                   alt={project.title} 
@@ -680,7 +689,7 @@ const Home: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Together</h2>
         </div>
 
-        <div className="glass-card p-8 lg:p-12 rounded-[2.5rem] relative overflow-hidden">
+        <div className="glass-card p-5 sm:p-8 lg:p-12 rounded-[1.8rem] sm:rounded-[2.5rem] relative overflow-hidden">
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
