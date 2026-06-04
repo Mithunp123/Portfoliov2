@@ -5,6 +5,7 @@ import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
 import LightRays from '../components/LightRays';
 import SkillsSection from '../components/SkillsSection';
+import GitHubActivity from '../components/GitHubActivity';
 
 
 interface MainProject {
@@ -631,6 +632,46 @@ const Home: React.FC = () => {
           </Link>
         </div>
       </section>
+
+      {/* GitHub Activity Section */}
+      <GitHubActivity />
+
+      {/* Hobbies Section */}
+      <section id="hobbies">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group py-8 border-b border-white/[0.04] transition-all duration-300">
+          {/* Left Column */}
+          <div className="lg:col-span-3">
+            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[#5a5a5a] group-hover:text-white transition-colors select-none">
+              Hobbies
+            </h3>
+          </div>
+          {/* Right Column */}
+          <div className="lg:col-span-9 flex flex-wrap gap-x-10 gap-y-6 items-center">
+            {[
+              { label: 'Listen Music', icon: '🎵' },
+              { label: 'Story games', icon: '🎮' },
+              { label: 'Gta 5 rp', icon: '🚗' },
+              { label: 'Freefire Panel (hack)', icon: '🛡️' },
+              { label: 'Watching Webseries and movies', icon: '🎬' },
+              { label: 'Travel', icon: '✈️' },
+              { label: 'Explore New things for the life', icon: '💡' }
+            ].map((hobby, hIdx) => (
+              <div
+                key={hIdx}
+                className="flex items-center gap-3 cursor-pointer group/hobby transition-all hover:scale-105 duration-200"
+              >
+                <span className="text-2xl select-none" role="img" aria-label={hobby.label}>
+                  {hobby.icon}
+                </span>
+                <span className="text-gray-300 group-hover/hobby:text-white font-bold text-base transition-colors duration-200">
+                  {hobby.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Contact Form — Let's Work Together (BELOW Blog) */}
       <section id="contact">

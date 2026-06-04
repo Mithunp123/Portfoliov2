@@ -6,9 +6,6 @@ interface WorkExperience {
   companyUrl: string;
   period: string;
   type: string;
-  fileLabel?: string;
-  projectUrl?: string;
-  projectText?: string;
   bullets: string[];
 }
 
@@ -20,13 +17,10 @@ const Experience: React.FC = () => {
       companyUrl: 'https://gradixtech.com/',
       period: 'Mar 2026 – Present',
       type: 'Intern',
-      fileLabel: 'experience.log',
-      projectUrl: 'https://vyuga.nexyuga.in',
-      projectText: 'vyuga.nexyuga.in',
       bullets: [
-        'Engineered Vyuga (vyuga.nexyuga.in): a full-stack event management web app built with React and Supabase, handling real-time registrations under peak traffic spikes with zero downtime.',
+        'Engineered a full-stack event management web app built with React and Supabase, handling real-time registrations under peak traffic spikes with zero downtime.',
         'Integrated Razorpay payment gateway enabling secure transactions for 500+ event registrations in a live production environment.',
-        'Built 3+ production features for the Vyuga platform, serving 2,000+ registered users, collaborating with the team to deliver responsive, high-performance UI components.'
+        'Built 3+ production features for the platform, serving 2,000+ registered users, collaborating with the team to deliver responsive, high-performance UI components.'
       ]
     },
     {
@@ -35,15 +29,12 @@ const Experience: React.FC = () => {
       companyUrl: 'https://dakshaa.ksrct.ac.in',
       period: '2025 – 2026',
       type: 'Product Development',
-      fileLabel: 'experience.log',
-      projectUrl: 'https://dakshaa.ksrct.ac.in',
-      projectText: 'dakshaa.ksrct.ac.in',
       bullets: [
-        'Developed a full-stack web application for Dakshaa T26, a national-level technical symposium, to digitally manage 10,000+ users and event operations end-to-end.',
+        'Developed a full-stack web application for a national-level technical symposium to digitally manage 10,000+ users and event operations end-to-end.',
         'Built a high-performance, responsive frontend using React, delivering a seamless registration and event experience across all devices.',
         'Engineered robust backend services with Express.js and RESTful APIs to handle concurrent user loads during peak registration traffic with zero downtime.',
         'Implemented Supabase for secure database management, real-time data sync, and user authentication across the platform.',
-        'Integrated the college payment gateway to enable smooth online registration and transaction processing, handling high-volume payment flows with real-time reconciliation.',
+        'Integrated the payment gateway to enable smooth online registration and transaction processing, handling high-volume payment flows with real-time reconciliation.',
         'Deployed the application on Cloudflare (Frontend) and a VPS server (Backend) ensuring fast global delivery, high availability, and production-grade reliability.'
       ]
     }
@@ -72,14 +63,6 @@ const Experience: React.FC = () => {
             key={idx} 
             className="group py-8 border-b border-white/[0.04] transition-all duration-300"
           >
-            {/* Visual File Label Indicator (matches "My Stack" theme) */}
-            {exp.fileLabel && (
-              <div className="flex items-center gap-1.5 text-xs font-mono text-gray-500 mb-4 select-none">
-                <span className="material-symbols-outlined text-[13px] text-[#f46c38]">description</span>
-                <span>{exp.fileLabel}</span>
-              </div>
-            )}
-
             {/* Company Name */}
             <div className="flex items-center gap-3 mb-1">
               <a 
@@ -102,21 +85,6 @@ const Experience: React.FC = () => {
             <div className="text-sm font-mono text-[#5a5a5a] group-hover:text-neutral-400 transition-colors mt-2 select-none">
               {exp.period}
             </div>
-
-            {/* Optional Project Reference Link */}
-            {exp.projectUrl && exp.projectText && (
-              <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-neutral-400">
-                <span className="text-neutral-600">Project:</span>
-                <a 
-                  href={exp.projectUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-[#f46c38] hover:text-white underline transition-colors"
-                >
-                  {exp.projectText}
-                </a>
-              </div>
-            )}
 
             {/* Bullet Points */}
             <ul className="list-disc pl-5 space-y-3 mt-6 text-[#a1a1a1] text-sm sm:text-base leading-relaxed max-w-4xl font-body-md font-medium">
