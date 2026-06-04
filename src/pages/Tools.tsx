@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-
-interface Tool {
-  name: string;
-  category: string;
-  bgColor: string;
-  iconUrl: string;
-}
+import SkillsSection from '../components/SkillsSection';
 
 const Tools: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,74 +15,7 @@ const Tools: React.FC = () => {
     setFormData({ name: '', email: '', scope: 'Select range...', message: '' });
   };
 
-  const tools: Tool[] = [
-    {
-      name: "Python",
-      category: "AI, Machine Learning, & Scripting",
-      bgColor: "bg-amber-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-    },
-    {
-      name: "SQL (MySQL & Postgres)",
-      category: "Database Modeling & Optimization",
-      bgColor: "bg-blue-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-    },
-    {
-      name: "Power BI",
-      category: "Data Visualization & Dashboards",
-      bgColor: "bg-yellow-400/10",
-      iconUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
-    },
-    {
-      name: "React & React Native",
-      category: "Full Stack UI Frameworks",
-      bgColor: "bg-cyan-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-    },
-    {
-      name: "JavaScript",
-      category: "Frontend/Backend Logic",
-      bgColor: "bg-yellow-500/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-    },
-    {
-      name: "Flask",
-      category: "Python Web Framework",
-      bgColor: "bg-gray-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
-    },
-    {
-      name: "Tailwind CSS",
-      category: "Modern Utility-First Styles",
-      bgColor: "bg-teal-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-    },
-    {
-      name: "Three.js",
-      category: "3D & WebGL Graphics",
-      bgColor: "bg-white/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
-    },
-    {
-      name: "Java",
-      category: "Object-Oriented Architecture",
-      bgColor: "bg-red-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-    },
-    {
-      name: "Git & GitHub",
-      category: "Version Control & Collaboration",
-      bgColor: "bg-orange-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-    },
-    {
-      name: "Supabase",
-      category: "Backend-as-a-Service & Auth",
-      bgColor: "bg-emerald-400/10",
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg"
-    }
-  ];
+
 
   return (
     <div className="space-y-32">
@@ -96,34 +23,14 @@ const Tools: React.FC = () => {
       <section id="tools">
         <div className="mb-16">
           <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none m-0">
-            Technical
+            My
           </h2>
           <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-outline -mt-2">
-            Skills
+            Stack
           </h2>
         </div>
 
-        {/* Tools Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
-          {tools.map((tool, idx) => (
-            <div 
-              key={idx} 
-              className="flex items-center gap-4 cursor-pointer transition-all duration-300 group py-4 hover:translate-x-1 animate-fade-in"
-            >
-              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg p-3">
-                <img 
-                  src={tool.iconUrl} 
-                  alt={tool.name} 
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-[#f46c38] transition-colors leading-snug">{tool.name}</h3>
-                <p className="text-[#8a8a8a] text-sm font-medium leading-none mt-0.5">{tool.category}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <SkillsSection previewOnly={false} />
       </section>
 
       {/* Let's Work Together Section */}

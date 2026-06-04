@@ -4,6 +4,7 @@ import Lanyard from '../components/Lanyard';
 import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
 import LightRays from '../components/LightRays';
+import SkillsSection from '../components/SkillsSection';
 
 
 interface MainProject {
@@ -42,69 +43,7 @@ const mainProjects: MainProject[] = [
   }
 ];
 
-interface PreviewTool {
-  name: string;
-  category: string;
-  bgColor: string;
-  iconUrl: string;
-}
 
-const previewTools: PreviewTool[] = [
-  {
-    name: "Python",
-    category: "AI & Scripting",
-    bgColor: "bg-amber-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-  },
-  {
-    name: "SQL Databases",
-    category: "Analytics & Data",
-    bgColor: "bg-blue-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-  },
-  {
-    name: "Flask",
-    category: "Backend Dev",
-    bgColor: "bg-gray-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg"
-  },
-  {
-    name: "Power BI",
-    category: "Dashboards & BI",
-    bgColor: "bg-yellow-400/10",
-    iconUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
-  },
-  {
-    name: "React & UI",
-    category: "Frontend Dev",
-    bgColor: "bg-cyan-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-  },
-  {
-    name: "Tailwind CSS",
-    category: "Modern CSS",
-    bgColor: "bg-teal-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-  },
-  {
-    name: "JavaScript",
-    category: "Logic & Code",
-    bgColor: "bg-yellow-500/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-  },
-  {
-    name: "Supabase",
-    category: "Cloud Database",
-    bgColor: "bg-emerald-400/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg"
-  },
-  {
-    name: "Three.js",
-    category: "3D Graphics",
-    bgColor: "bg-white/10",
-    iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
-  }
-];
 
 /* Journey timeline entries */
 interface JourneyEntry {
@@ -478,7 +417,7 @@ const Home: React.FC = () => {
       <section id="tools">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">Premium</h2>
+            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">My</h2>
             <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Stack</h2>
           </div>
           <Link 
@@ -490,26 +429,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-12 gap-y-6 sm:gap-y-8 max-w-[1100px] mx-auto pl-4 sm:pl-8 lg:pl-16">
-          {previewTools.map((tool, idx) => (
-            <div 
-              key={idx} 
-              className="flex items-center gap-3 sm:gap-5 cursor-pointer transition-all duration-300 group py-3 sm:py-5 hover:translate-x-2"
-            >
-              <div className="w-16 h-16 sm:w-22 sm:h-22 bg-white rounded-2xl sm:rounded-[1.75rem] flex items-center justify-center shrink-0 shadow-xl p-3 sm:p-4.5">
-                <img 
-                  src={tool.iconUrl} 
-                  alt={tool.name} 
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110" 
-                />
-              </div>
-              <div>
-                <div className="text-base sm:text-2xl font-black text-white leading-tight group-hover:text-[#f46c38] transition-colors">{tool.name}</div>
-                <div className="text-[10px] sm:text-xs text-[#8a8a8a] font-bold leading-none mt-1 sm:mt-1.5">{tool.category}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <SkillsSection previewOnly={true} />
       </section>
 
       {/* My Journey — Uniform card height, professional tile design */}
