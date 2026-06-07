@@ -54,7 +54,7 @@ export default function Lanyard({
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
-        <ambientLight intensity={Math.PI} />
+        <ambientLight intensity={1.0} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band isMobile={isMobile} onDragStateChange={onDragStateChange} />
         </Physics>
@@ -134,6 +134,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, onDragStateChange
       baseTexture.wrapT = THREE.ClampToEdgeWrapping;
       baseTexture.repeat.set(1.0, 1.0);
       baseTexture.offset.set(0.22, 0.0);
+      baseTexture.colorSpace = THREE.SRGBColorSpace;
       baseTexture.needsUpdate = true;
     }
   }, [baseTexture]);
@@ -216,6 +217,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, onDragStateChange
         tex.wrapT = THREE.ClampToEdgeWrapping;
         tex.repeat.set(1.0, 1.0);
         tex.offset.set(0.22, 0.0);
+        tex.colorSpace = THREE.SRGBColorSpace;
         tex.needsUpdate = true;
         
         console.log("Setting cardTexture successfully!");
@@ -326,10 +328,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, onDragStateChange
               <meshPhysicalMaterial
                 map={cardTexture || baseTexture}
                 map-anisotropy={16}
-                clearcoat={isMobile ? 0 : 1}
-                clearcoatRoughness={0.1}
-                roughness={0.15}
+                clearcoat={0}
+                clearcoatRoughness={0}
+                roughness={0.7}
                 metalness={0.0}
+                envMapIntensity={0.1}
               />
             </mesh>
 
