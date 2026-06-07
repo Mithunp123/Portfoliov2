@@ -15,7 +15,6 @@ interface SelectedWork {
   image: string;
   url: string;
   year: string;
-  role: string;
   tech: string[];
   metrics: { label: string; value: string }[];
 }
@@ -27,7 +26,6 @@ const selectedWorks: SelectedWork[] = [
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
     url: "https://time2orders.com",
     year: "2024",
-    role: "Full Stack Lead",
     tech: ["Python", "SQL", "Cashfree API"],
     metrics: [
       { label: "Active Orders", value: "12K+" },
@@ -41,7 +39,6 @@ const selectedWorks: SelectedWork[] = [
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
     url: "https://dakshaa.ksrct.ac.in",
     year: "2025",
-    role: "Lead Developer",
     tech: ["Node.js", "React", "PostgreSQL", "Tailwind"],
     metrics: [
       { label: "Symposium Users", value: "10K+" },
@@ -55,7 +52,6 @@ const selectedWorks: SelectedWork[] = [
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     url: "https://github.com/Mithunp123/",
     year: "2024",
-    role: "AI Lead",
     tech: ["Python", "PyTorch", "Flask", "Deep Learning"],
     metrics: [
       { label: "Model Accuracy", value: "98.4%" },
@@ -69,7 +65,6 @@ const selectedWorks: SelectedWork[] = [
     image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
     url: "https://autorevives.com",
     year: "2025",
-    role: "Lead Architect",
     tech: ["Python", "Flask", "SQL", "WebSockets"],
     metrics: [
       { label: "Auctions Hosted", value: "1.8K+" },
@@ -83,7 +78,6 @@ const selectedWorks: SelectedWork[] = [
     image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
     url: "https://propic.in",
     year: "2024",
-    role: "Full Stack Engineer",
     tech: ["Python", "Flask", "SQLite", "Tailwind"],
     metrics: [
       { label: "Products Listed", value: "800+" },
@@ -690,12 +684,8 @@ const Home: React.FC = () => {
                 </span>
               </div>
 
-              {/* Right Column: Role and Year */}
-              <div className="flex items-center gap-10 mt-4 lg:mt-0 text-right">
-                <div className="hidden sm:block">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold block mb-0.5">Role</span>
-                  <span className="text-sm font-semibold text-[var(--text-primary)]">{work.role}</span>
-                </div>
+              {/* Right Column: Year */}
+              <div className="flex items-center mt-4 lg:mt-0 text-right">
                 <div>
                   <span className="text-[9px] uppercase tracking-[0.25em] text-[var(--text-muted)] font-bold block mb-0.5">Timeline</span>
                   <span className="text-sm font-mono text-white/40 group-hover:text-[#3b82f6] transition-colors duration-300">
@@ -934,7 +924,7 @@ const Home: React.FC = () => {
                       <div className="relative z-10">
                         <div className="flex justify-between items-start mb-4">
                           <span className="text-3xl font-black text-[var(--text-primary)] opacity-10 font-mono">{entry.year}</span>
-                          <span className="text-[9px] font-bold tracking-widest text-[var(--text-primary)] uppercase font-mono border border-[#3b82f6] bg-[#3b82f6]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
+                          <span className="text-[9px] sm:text-[11.5px] font-sans font-medium normal-case tracking-normal text-[var(--text-primary)] border border-[#3b82f6] bg-[#3b82f6]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
                         </div>
                         <h3 className="text-lg font-bold text-[var(--text-primary)] mb-3 leading-snug">{entry.title}</h3>
                         <p className="text-[var(--text-secondary)] text-[13px] leading-relaxed font-body-md line-clamp-3">
