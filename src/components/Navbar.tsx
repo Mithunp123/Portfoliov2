@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
               id={link.isHome ? "navbar-home-link" : undefined}
               className={({ isActive }) => 
                 `transition-colors flex flex-col items-center p-2 rounded-full hover:scale-110 duration-200 relative group ${
-                  isActive ? 'text-[#f46c38]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                  isActive ? 'text-[#3b82f6]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`
               }
             >
@@ -141,7 +141,7 @@ const Navbar: React.FC = () => {
             to={link.to} 
             className={({ isActive }) => 
               `transition-colors flex-grow flex flex-col items-center p-2 rounded-full hover:scale-115 duration-200 relative group ${
-                isActive ? 'text-[#f46c38]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                isActive ? 'text-[#3b82f6]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`
             }
           >

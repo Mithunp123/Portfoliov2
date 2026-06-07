@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Lanyard from '../components/Lanyard';
 import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
@@ -9,41 +9,165 @@ import SkillsSection from '../components/SkillsSection';
 import GitHubActivity from '../components/GitHubActivity';
 
 
-interface MainProject {
+interface SelectedWork {
   title: string;
   category: string;
-  description: string;
   image: string;
   url: string;
-  status: string;
+  year: string;
+  role: string;
+  tech: string[];
+  metrics: { label: string; value: string }[];
 }
 
-const mainProjects: MainProject[] = [
-  {
-    title: "TrueSight AI",
-    category: "AI / Cybercrime Forensics",
-    description: "Deepfake video and image detection forensics system. Officially presented to Namakkal Police Cybercrime unit.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80",
-    url: "https://github.com/Mithunp123/",
-    status: "🏆 2nd Prize Winner"
-  },
+const selectedWorks: SelectedWork[] = [
   {
     title: "Time2Order",
     category: "Full Stack / Operations",
-    description: "Preorder management platform that simplifies sales cycles and integrates secure payment APIs.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
     url: "https://time2orders.com",
-    status: "Live"
+    year: "2024",
+    role: "Full Stack Lead",
+    tech: ["Python", "SQL", "Cashfree API"],
+    metrics: [
+      { label: "Active Orders", value: "12K+" },
+      { label: "Setup Time", value: "5 Mins" },
+      { label: "Uptime", value: "99.9%" }
+    ]
+  },
+  {
+    title: "Dakshaa",
+    category: "Full Stack / Event Tech",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+    url: "https://dakshaa.ksrct.ac.in",
+    year: "2025",
+    role: "Lead Developer",
+    tech: ["Node.js", "React", "PostgreSQL", "Tailwind"],
+    metrics: [
+      { label: "Symposium Users", value: "10K+" },
+      { label: "Page Load", value: "0.4s" },
+      { label: "Registrations", value: "4.5K+" }
+    ]
+  },
+  {
+    title: "TrueSight AI",
+    category: "AI / Cybercrime Forensics",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    url: "https://github.com/Mithunp123/",
+    year: "2024",
+    role: "AI Lead",
+    tech: ["Python", "PyTorch", "Flask", "Deep Learning"],
+    metrics: [
+      { label: "Model Accuracy", value: "98.4%" },
+      { label: "Video Detections", value: "25K+" },
+      { label: "Processing Speed", value: "45 FPS" }
+    ]
   },
   {
     title: "AutoRevives",
     category: "Full Stack / E-Commerce",
-    description: "Comprehensive vehicle bidding and live auction system with real-time bidding functionalities.",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400&q=80",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
     url: "https://autorevives.com",
-    status: "Live"
+    year: "2025",
+    role: "Lead Architect",
+    tech: ["Python", "Flask", "SQL", "WebSockets"],
+    metrics: [
+      { label: "Auctions Hosted", value: "1.8K+" },
+      { label: "Bids Placed", value: "35K+" },
+      { label: "Sync Latency", value: "0.1s" }
+    ]
+  },
+  {
+    title: "Propic",
+    category: "Full Stack / E-Commerce",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
+    url: "https://propic.in",
+    year: "2024",
+    role: "Full Stack Engineer",
+    tech: ["Python", "Flask", "SQLite", "Tailwind"],
+    metrics: [
+      { label: "Products Listed", value: "800+" },
+      { label: "Checkout Time", value: "3 Mins" },
+      { label: "Security sync", value: "100%" }
+    ]
   }
 ];
+
+const NeuralCanvas: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationId: number;
+    const particles: { x: number; y: number; vx: number; vy: number }[] = [];
+    const particleCount = 20;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * 460,
+        y: Math.random() * 320,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6
+      });
+    }
+
+    const handleResize = () => {
+      canvas.width = 460;
+      canvas.height = 320;
+    };
+    handleResize();
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.12)';
+      ctx.lineWidth = 0.8;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        p1.x += p1.vx;
+        p1.y += p1.vy;
+
+        if (p1.x < 0) p1.x = canvas.width;
+        if (p1.x > canvas.width) p1.x = 0;
+        if (p1.y < 0) p1.y = canvas.height;
+        if (p1.y > canvas.height) p1.y = 0;
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 90) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.fillStyle = 'rgba(139, 92, 246, 0.35)';
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      animationId = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-80 z-10" style={{ width: '100%', height: '100%' }} />;
+};
 
 
 
@@ -123,6 +247,28 @@ const welcomeBadgeVariants: any = {
 };
 
 const Home: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+
+  const rotateX = useSpring(useTransform(mouseY, [-400, 400], [12, -12]), { damping: 25, stiffness: 150 });
+  const rotateY = useSpring(useTransform(mouseX, [-600, 600], [-12, 12]), { damping: 25, stiffness: 150 });
+  const translateX = useSpring(mouseX, { damping: 30, stiffness: 150 });
+  const translateY = useSpring(mouseY, { damping: 30, stiffness: 150 });
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const xVal = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(xVal);
+    mouseY.set(yVal);
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -187,6 +333,38 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  const [isDragging, setIsDragging] = useState(false);
+  const [pointerEvents, setPointerEvents] = useState<'auto' | 'none'>('none');
+
+  useEffect(() => {
+    const handlePointerMove = (e: PointerEvent) => {
+      if (isDragging) {
+        setPointerEvents('auto');
+        return;
+      }
+
+      const homeLink = document.getElementById('navbar-home-link');
+      if (!homeLink) return;
+
+      const homeRect = homeLink.getBoundingClientRect();
+      const homeCenterX = homeRect.left + homeRect.width / 2;
+      const cardCenterY = homeRect.bottom + 220;
+
+      const dx = e.clientX - homeCenterX;
+      const dy = e.clientY - cardCenterY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 180) {
+        setPointerEvents('auto');
+      } else {
+        setPointerEvents('none');
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    return () => window.removeEventListener('pointermove', handlePointerMove);
+  }, [isDragging]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert(`Thank you ${formData.name}! Your message has been sent successfully to Mithun P.`);
@@ -195,11 +373,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-32">
-      {/* Dynamic ambient light rays above the navbar */}
-      <div className="absolute top-0 left-0 right-0 h-[650px] pointer-events-none overflow-hidden z-[101]">
+      {/* Dynamic ambient light rays behind the layout elements */}
+      <div className="absolute top-0 left-0 right-0 h-[650px] pointer-events-none overflow-hidden z-0">
         <LightRays
           raysOrigin="top-center"
-          raysColor="#f46c38"
+          raysColor="#3b82f6"
           raysSpeed={1.5}
           lightSpread={0.8}
           rayLength={1.5}
@@ -214,7 +392,7 @@ const Home: React.FC = () => {
       <section data-purpose="hero" className="pt-4 lg:pt-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start mb-20">
           {/* Lanyard Visual Container - Rendered on desktop only */}
-          <div className="hidden lg:flex lg:w-[550px] order-2 lg:order-1 items-center justify-center shrink-0">
+          <div className="hidden lg:flex lg:w-[550px] order-2 lg:order-1 items-center justify-center shrink-0 relative z-30">
             {/* Desktop 3D Canvas Lanyard */}
             <div 
               ref={lanyardParentRef}
@@ -222,10 +400,15 @@ const Home: React.FC = () => {
             >
               <div 
                 ref={lanyardContainerRef} 
-                className="w-full h-full relative flex items-center justify-center transition-transform duration-100 ease-out"
-                style={alignmentStyle}
+                className="absolute w-[2000px] h-[850px] left-[calc(50%-1000px)] top-0 flex items-center justify-center transition-transform duration-100 ease-out"
+                style={{ ...alignmentStyle, pointerEvents }}
               >
-                <Lanyard position={[0, 0, 14]} gravity={[0, -40, 0]} />
+                <Lanyard 
+                  position={[0, 0, 15]} 
+                  fov={22} 
+                  gravity={[0, -40, 0]} 
+                  onDragStateChange={setIsDragging}
+                />
               </div>
             </div>
           </div>
@@ -245,9 +428,9 @@ const Home: React.FC = () => {
                   <div className="overflow-hidden mb-2">
                     <motion.div 
                       variants={welcomeBadgeVariants}
-                      className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] text-[#f46c38]"
+                      className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] text-[#3b82f6]"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#f46c38] animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
                       Hey,
                     </motion.div>
                   </div>
@@ -262,7 +445,7 @@ const Home: React.FC = () => {
                     <span className="inline-block overflow-hidden py-0.5">
                       <motion.span variants={welcomeChildVariants} className="inline-block font-black">
                         <GradientText
-                          colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                          colors={["#3b82f6", "#06b6d4", "#3b82f6", "#06b6d4", "#3b82f6"]}
                           animationSpeed={4}
                           showBorder={false}
                           className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none font-black"
@@ -276,7 +459,7 @@ const Home: React.FC = () => {
                 <div className="w-fit border border-transparent hover:border-[var(--border-medium)] py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
                     <GradientText
-                      colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                      colors={["#3b82f6", "#06b6d4", "#3b82f6", "#06b6d4", "#3b82f6"]}
                       animationSpeed={4}
                       showBorder={false}
                       className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none"
@@ -288,7 +471,7 @@ const Home: React.FC = () => {
                 <div className="w-fit border border-transparent hover:border-[var(--border-medium)] py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
                     <GradientText
-                      colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                      colors={["#3b82f6", "#06b6d4", "#3b82f6", "#06b6d4", "#3b82f6"]}
                       animationSpeed={4}
                       showBorder={false}
                       className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none"
@@ -315,19 +498,19 @@ const Home: React.FC = () => {
               <div className="flex flex-wrap gap-x-10 gap-y-6 sm:gap-x-12 shrink-0">
                 <div>
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">3+</div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Years Coding</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Years Coding</div>
                 </div>
                 <div>
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">12+</div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Real Projects</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Real Projects</div>
                 </div>
                 <div>
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">4+</div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Clients Served</div>
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Clients Served</div>
                 </div>
                 <div>
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">10K+</div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold leading-tight">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold leading-tight">
                     Users Reached <br />
                     <span className="text-[var(--text-muted)] font-mono text-[8px] normal-case tracking-normal">via event platform</span>
                   </div>
@@ -342,7 +525,7 @@ const Home: React.FC = () => {
                   className="w-full sm:w-auto px-8 py-5 bg-[var(--download-btn-bg)] hover:opacity-90 text-[var(--download-btn-text)] rounded-2xl font-extrabold uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 shadow-2xl transition-all hover:-translate-y-0.5 active:scale-95 group cursor-pointer border border-[var(--download-btn-border)]"
                   title="Download Resume"
                 >
-                  <span className="material-symbols-outlined text-lg text-[#f46c38] group-hover:scale-110 transition-transform duration-300">download</span>
+                  <span className="material-symbols-outlined text-lg text-[#3b82f6] group-hover:scale-110 transition-transform duration-300">download</span>
                   <span>Download Resume</span>
                 </a>
                 
@@ -396,7 +579,7 @@ const Home: React.FC = () => {
         {/* Highlight Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link to="/tools" className="block group">
-            <div className="bg-[#f46c38] p-8 xl:p-10 rounded-[2rem] h-64 xl:h-72 flex flex-col justify-between overflow-hidden relative shadow-2xl shadow-[#f46c38]/10 cursor-pointer">
+            <div className="bg-[#3b82f6] p-8 xl:p-10 rounded-[2rem] h-64 xl:h-72 flex flex-col justify-between overflow-hidden relative shadow-2xl shadow-[#3b82f6]/10 cursor-pointer">
               <div className="absolute -right-6 -top-6 opacity-20 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
                 <svg className="w-48 h-48" fill="white" viewBox="0 0 24 24">
                   <path d="M12 2L1 7l11 5 11-5-11-5zM1 12l11 5 11-5-11-5-11 5zm0 5l11 5 11-5-11-5-11 5z" />
@@ -409,7 +592,7 @@ const Home: React.FC = () => {
                 <h3 className="text-2xl xl:text-3xl font-extrabold leading-none uppercase text-white">
                   Data Science &amp;<br />AI Analytics
                 </h3>
-                <div className="w-11 h-11 border border-white/40 rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-[#f46c38] transition-all duration-300">
+                <div className="w-11 h-11 border border-white/40 rounded-2xl flex items-center justify-center group-hover:bg-white group-hover:text-[#3b82f6] transition-all duration-300">
                   <span className="material-symbols-outlined text-xl">arrow_outward</span>
                 </div>
               </div>
@@ -421,14 +604,14 @@ const Home: React.FC = () => {
               <div className="absolute -right-8 -top-8 opacity-5 group-hover:scale-110 transition-all duration-700 pointer-events-none">
                 <span className="material-symbols-outlined text-[180px] text-white">code</span>
               </div>
-              <div className="bg-[#f46c38]/10 w-12 h-12 rounded-2xl flex items-center justify-center border border-[#f46c38]/20">
-                <span className="material-symbols-outlined text-[#f46c38] text-2xl font-bold">terminal</span>
+              <div className="bg-[#3b82f6]/10 w-12 h-12 rounded-2xl flex items-center justify-center border border-[#3b82f6]/20">
+                <span className="material-symbols-outlined text-[#3b82f6] text-2xl font-bold">terminal</span>
               </div>
               <div className="flex justify-between items-end relative z-10">
                 <h3 className="text-2xl xl:text-3xl font-extrabold leading-none uppercase text-white">
                   Full Stack<br />Architecture
                 </h3>
-                <div className="w-11 h-11 border border-white/10 rounded-2xl flex items-center justify-center group-hover:bg-[#f46c38] group-hover:text-white transition-all group-hover:border-[#f46c38] duration-300">
+                <div className="w-11 h-11 border border-white/10 rounded-2xl flex items-center justify-center group-hover:bg-[#3b82f6] group-hover:text-white transition-all group-hover:border-[#3b82f6] duration-300">
                   <span className="material-symbols-outlined text-xl">arrow_outward</span>
                 </div>
               </div>
@@ -438,13 +621,13 @@ const Home: React.FC = () => {
       </section>
 
       {/* Honors H. Badge — Fixed vertical pill on right edge, clickable to /honors */}
-      <Link to="/honors" className="fixed right-0 top-1/2 -translate-y-1/2 z-[90] hidden lg:flex flex-col items-center group">
+      <Link to="/honors" className="fixed right-0 top-1/2 -translate-y-1/2 z-[20] hidden lg:flex flex-col items-center group">
         {/* Right border accent line */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[3px] h-52 bg-gradient-to-b from-transparent via-[#f46c38] to-transparent rounded-full"></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[3px] h-52 bg-gradient-to-b from-transparent via-[#3b82f6] to-transparent rounded-full"></div>
         
         {/* The badge pill itself — touching the right edge */}
-        <div className="bg-white text-black w-[52px] rounded-l-2xl flex flex-col items-center justify-between py-6 shadow-2xl border border-neutral-100 border-r-0 select-none font-sans mr-0 cursor-pointer group-hover:shadow-[#f46c38]/20 group-hover:shadow-xl transition-all duration-300" style={{ height: '160px' }}>
-          <span className="text-3xl font-extrabold tracking-tighter leading-none font-serif text-[#f46c38]">H.</span>
+        <div className="bg-white text-black w-[52px] rounded-l-2xl flex flex-col items-center justify-between py-6 shadow-2xl border border-neutral-100 border-r-0 select-none font-sans mr-0 cursor-pointer group-hover:shadow-[#3b82f6]/20 group-hover:shadow-xl transition-all duration-300" style={{ height: '160px' }}>
+          <span className="text-3xl font-extrabold tracking-tighter leading-none font-serif text-[#3b82f6]">H.</span>
           <span 
             style={{ writingMode: 'vertical-rl' }} 
             className="rotate-180 text-[10px] font-black uppercase tracking-[0.25em] text-neutral-800"
@@ -454,49 +637,238 @@ const Home: React.FC = () => {
         </div>
       </Link>
 
-      {/* Featured Projects Preview */}
-      <section id="projects">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter">Featured</h2>
-            <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter text-outline mt-1">Projects</h2>
+      {/* Selected Work Section */}
+      <section id="projects" className="relative pt-6">
+        {/* Title / Header capsule */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-16 border-b border-white/[0.05] pb-8">
+          <div className="flex items-center gap-4">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white leading-none">
+              Selected
+            </h2>
+            <div className="text-[#3b82f6] flex items-center justify-center">
+              <svg className="w-8 h-8 md:w-12 md:h-12 animate-[spin_12s_linear_infinite] text-[#3b82f6]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
+              </svg>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-outline leading-none">
+              Work
+            </h2>
           </div>
           <Link 
             to="/projects" 
-            className="text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
+            className="text-xs font-bold uppercase tracking-[0.2em] text-[#3b82f6] hover:text-white flex items-center gap-2 transition-colors group"
           >
             All Projects 
-            <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </Link>
         </div>
-        
-        <div className="space-y-2">
-          {mainProjects.map((project, idx) => (
+
+        {/* Selected Work List Grid */}
+        <div 
+          ref={containerRef}
+          onPointerMove={handlePointerMove}
+          onPointerEnter={() => setIsHovering(true)}
+          onPointerLeave={() => setIsHovering(false)}
+          className="space-y-0 relative z-20"
+        >
+          {selectedWorks.map((work, idx) => (
+            <a 
+              key={idx}
+              href={work.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setActiveIndex(idx)}
+              className="group flex flex-col lg:flex-row items-start lg:items-center justify-between py-10 border-b border-white/[0.04] hover:bg-white/[0.01] px-4 sm:px-6 transition-all duration-500 relative"
+            >
+              {/* Left Column: Title & Category */}
+              <div className="flex-1">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--text-secondary)] group-hover:text-white transition-colors duration-300 leading-tight">
+                  {work.title}
+                </h3>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] mt-1.5 block font-mono">
+                  {work.category}
+                </span>
+              </div>
+
+              {/* Right Column: Role and Year */}
+              <div className="flex items-center gap-10 mt-4 lg:mt-0 text-right">
+                <div className="hidden sm:block">
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold block mb-0.5">Role</span>
+                  <span className="text-sm font-semibold text-[var(--text-primary)]">{work.role}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] uppercase tracking-[0.25em] text-[var(--text-muted)] font-bold block mb-0.5">Timeline</span>
+                  <span className="text-sm font-mono text-white/40 group-hover:text-[#3b82f6] transition-colors duration-300">
+                    {work.year}
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+
+          {/* Center Floating Card (Desktop only) */}
+          <div className="hidden lg:block absolute inset-0 pointer-events-none z-[50]">
+            <motion.div
+              style={{
+                x: translateX,
+                y: translateY,
+                rotateX: rotateX,
+                rotateY: rotateY,
+                transformStyle: 'preserve-3d',
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                marginLeft: '-230px', // half of card width (460/2)
+                marginTop: '-160px' // half of card height (320/2)
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: isHovering ? 1 : 0, 
+                scale: isHovering ? 1 : 0.8 
+              }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="w-[460px] h-[320px] rounded-[2rem] border-2 border-[#3b82f6]/50 bg-[#08080a]/95 backdrop-blur-2xl shadow-[0_0_55px_rgba(59,130,246,0.25)] overflow-hidden flex flex-col justify-between p-6"
+            >
+              {/* Animated Gradient Border */}
+              <div className="absolute inset-0 border border-[#3b82f6]/20 rounded-[2rem] pointer-events-none z-20" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 to-[#06b6d4]/10 opacity-30 pointer-events-none" />
+
+              {/* Neural Canvas particles */}
+              <NeuralCanvas />
+
+              {/* Backdrop Image */}
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeIndex}
+                  src={selectedWorks[activeIndex].image}
+                  alt={selectedWorks[activeIndex].title}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.9 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.7] saturate-[0.85]"
+                />
+              </AnimatePresence>
+
+              {/* Dark Gradient Overlay for Legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/50 z-[5] pointer-events-none" />
+
+              {/* Top Area: Tech Stack Badges */}
+              <div className="relative z-20 flex flex-wrap gap-2">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: {
+                        opacity: 1,
+                        transition: { staggerChildren: 0.08 }
+                      }
+                    }}
+                    className="flex flex-wrap gap-1.5"
+                  >
+                    {selectedWorks[activeIndex].tech.map((t, tIdx) => (
+                      <motion.span
+                        key={tIdx}
+                        variants={{
+                          hidden: { opacity: 0, y: -10 },
+                          visible: { opacity: 1, y: 0 }
+                        }}
+                        className="text-[9px] font-mono tracking-wider font-bold uppercase bg-black/60 border border-white/10 px-2.5 py-1 rounded-full text-white/80"
+                      >
+                        {t}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Center Area: Animated Magnetic View Button */}
+              <div className="relative z-20 flex items-center justify-center flex-1">
+                <motion.div 
+                  animate={{ 
+                    scale: isHovering ? 1.05 : 0.95,
+                    boxShadow: isHovering ? "0 0 25px rgba(59,130,246,0.4)" : "0 0 0px rgba(0,0,0,0)"
+                  }}
+                  className="w-16 h-16 rounded-full bg-[#3b82f6] text-white flex flex-col items-center justify-center font-bold text-[10px] uppercase tracking-widest shadow-lg cursor-pointer"
+                >
+                  <span>View</span>
+                  <span className="material-symbols-outlined text-sm leading-none mt-0.5">arrow_outward</span>
+                </motion.div>
+              </div>
+
+              {/* Bottom Area: Metrics Grid */}
+              <div className="relative z-20 border-t border-white/10 pt-3">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="grid grid-cols-3 gap-2"
+                  >
+                    {selectedWorks[activeIndex].metrics.map((metric, mIdx) => (
+                      <div key={mIdx} className="text-center">
+                        <div className="text-[8px] uppercase tracking-wider text-white/60 mb-0.5">{metric.label}</div>
+                        <div className="text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-[#3b82f6] to-[#06b6d4]">{metric.value}</div>
+                      </div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Mobile Layout (lg:hidden) */}
+        <div className="lg:hidden space-y-4 pt-6">
+          {selectedWorks.map((work, idx) => (
             <a 
               key={idx} 
-              href={project.url} 
+              href={work.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center group py-6 border-b border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors w-full gap-4 sm:gap-6"
+              className="block glass-card p-5 rounded-[1.8rem] border border-white/[0.04] bg-[#0c0c0e]/80 shadow-md"
             >
-              {/* Left Rounded Image */}
-              <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-[var(--border-subtle)] bg-[var(--tooltip-bg)] relative">
+              {/* Header: Title and year */}
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h3 className="text-xl font-bold text-white leading-tight">{work.title}</h3>
+                  <span className="text-[9px] uppercase tracking-wider text-[var(--text-muted)] font-mono">{work.category}</span>
+                </div>
+                <span className="text-xs font-mono text-[#3b82f6] font-bold">{work.year}</span>
+              </div>
+
+              {/* Image preview (small size) */}
+              <div className="w-full h-40 rounded-2xl overflow-hidden mb-4 border border-white/5 relative">
                 <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  src={work.image} 
+                  alt={work.title} 
+                  className="w-full h-full object-cover" 
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                
+                {/* Tech badges inline on image */}
+                <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                  {work.tech.slice(0, 3).map((t, tIdx) => (
+                    <span key={tIdx} className="text-[7.5px] font-mono tracking-wider uppercase bg-black/60 border border-white/10 px-2 py-0.5 rounded text-white/90">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-              {/* Center Title & Description */}
-              <div className="flex-grow">
-                <h3 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-tight mb-1">{project.title}</h3>
-                <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-semibold">{project.category}</p>
-              </div>
-              {/* Right Orange Diagonal Arrow */}
-              <div className="text-[#f46c38] shrink-0 mr-2 transition-transform duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+
+              {/* Metrics row */}
+              <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-3">
+                {work.metrics.map((metric, mIdx) => (
+                  <div key={mIdx} className="text-center">
+                    <div className="text-[7.5px] uppercase tracking-wider text-[var(--text-muted)] mb-0.5">{metric.label}</div>
+                    <div className="text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-[#3b82f6] to-[#06b6d4]">{metric.value}</div>
+                  </div>
+                ))}
               </div>
             </a>
           ))}
@@ -512,7 +884,7 @@ const Home: React.FC = () => {
           </div>
           <Link 
             to="/tools" 
-            className="text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
+            className="text-sm font-bold uppercase tracking-widest text-[#3b82f6] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
           >
             All Tech 
             <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -534,8 +906,8 @@ const Home: React.FC = () => {
         </div>
 
         <div className="relative">
-          {/* Vertical central line (cyan/orange gradient) */}
-          <div className="absolute left-8 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#f46c38] via-cyan-400 to-transparent"></div>
+          {/* Vertical central line (cyan/blue gradient) */}
+          <div className="absolute left-8 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#3b82f6] via-cyan-400 to-transparent"></div>
 
           <div className="space-y-12 relative z-10">
             {journeyEntries.map((entry, idx) => {
@@ -550,19 +922,19 @@ const Home: React.FC = () => {
                   
                   {/* Side Label (Desktop only) */}
                   <div className={`hidden lg:block lg:w-[45%] ${isEven ? 'text-right pr-12' : 'text-left pl-12'}`}>
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#f46c38] uppercase font-mono">{entry.sideLabel}</span>
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#3b82f6] uppercase font-mono">{entry.sideLabel}</span>
                   </div>
                   
                   {/* Card */}
                   <div className={`w-full lg:w-[45%] ${isEven ? 'pl-16 lg:pl-12' : 'pl-16 lg:pr-12'}`}>
-                    <div className="journey-card p-7 rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-secondary)] relative overflow-hidden transition-all duration-300 hover:border-[var(--accent-glow)] hover:shadow-2xl hover:shadow-[#f46c38]/5 hover:-translate-y-1 group">
+                    <div className="journey-card p-7 rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-secondary)] relative overflow-hidden transition-all duration-300 hover:border-[var(--accent-glow)] hover:shadow-2xl hover:shadow-[#3b82f6]/5 hover:-translate-y-1 group">
                       {/* Subtle glow on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#f46c38]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                       
                       <div className="relative z-10">
                         <div className="flex justify-between items-start mb-4">
                           <span className="text-3xl font-black text-[var(--text-primary)] opacity-10 font-mono">{entry.year}</span>
-                          <span className="text-[9px] font-bold tracking-widest text-[var(--text-primary)] uppercase font-mono border border-[#f46c38] bg-[#f46c38]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
+                          <span className="text-[9px] font-bold tracking-widest text-[var(--text-primary)] uppercase font-mono border border-[#3b82f6] bg-[#3b82f6]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
                         </div>
                         <h3 className="text-lg font-bold text-[var(--text-primary)] mb-3 leading-snug">{entry.title}</h3>
                         <p className="text-[var(--text-secondary)] text-[13px] leading-relaxed font-body-md line-clamp-3">
@@ -571,7 +943,7 @@ const Home: React.FC = () => {
                       </div>
                       
                       <div className="lg:hidden mt-4">
-                        <span className="text-[9px] font-bold tracking-wider text-[#f46c38] uppercase font-mono">{entry.sideLabel}</span>
+                        <span className="text-[9px] font-bold tracking-wider text-[#3b82f6] uppercase font-mono">{entry.sideLabel}</span>
                       </div>
                     </div>
                   </div>
@@ -586,7 +958,7 @@ const Home: React.FC = () => {
       <section id="experience" className="relative">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <div className="flex items-center gap-2.5 text-xs text-[#f46c38] font-bold uppercase tracking-[0.25em] mb-3">
+            <div className="flex items-center gap-2.5 text-xs text-[#3b82f6] font-bold uppercase tracking-[0.25em] mb-3">
               <span className="material-symbols-outlined text-sm shrink-0 select-none animate-pulse">work</span>
               <span>My Experience</span>
             </div>
@@ -595,7 +967,7 @@ const Home: React.FC = () => {
           </div>
           <Link 
             to="/experience" 
-            className="text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
+            className="text-sm font-bold uppercase tracking-widest text-[#3b82f6] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
           >
             Full History 
             <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -609,7 +981,7 @@ const Home: React.FC = () => {
               Gradix Technologies
             </div>
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#3b82f6] transition-colors leading-none m-0">
                 Web Developer <span className="text-[var(--text-muted)] font-semibold lowercase text-base sm:text-lg">(Intern)</span>
               </h3>
               <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
@@ -624,7 +996,7 @@ const Home: React.FC = () => {
               Dakshaa T26 Symposium
             </div>
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#3b82f6] transition-colors leading-none m-0">
                 Backend Developer <span className="text-[var(--text-muted)] font-semibold lowercase text-base sm:text-lg">(Product Development)</span>
               </h3>
               <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
@@ -659,7 +1031,7 @@ const Home: React.FC = () => {
           </div>
           <Link 
             to="/blog" 
-            className="text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
+            className="text-sm font-bold uppercase tracking-widest text-[#3b82f6] hover:text-white flex items-center gap-1.5 transition-colors group mb-1"
           >
             All Insights 
             <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -668,9 +1040,9 @@ const Home: React.FC = () => {
 
         <div className="space-y-6">
           <Link to="/blog" className="block group">
-            <article className="py-6 border-b border-white/5 hover:border-[#f46c38] transition-colors cursor-pointer flex justify-between items-start gap-4">
+            <article className="py-6 border-b border-white/5 hover:border-[#3b82f6] transition-colors cursor-pointer flex justify-between items-start gap-4">
               <div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-[#f46c38] transition-colors leading-tight mb-3">
+                <h3 className="text-2xl font-bold text-white group-hover:text-[#3b82f6] transition-colors leading-tight mb-3">
                   Deepfake Detection Research &amp; Presentation
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mb-4 font-body-md">
@@ -678,20 +1050,20 @@ const Home: React.FC = () => {
                 </p>
                 <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">
                   <span>Presented in 2024</span>
-                  <span className="w-1 h-1 bg-[#f46c38] rounded-full"></span>
+                  <span className="w-1 h-1 bg-[#3b82f6] rounded-full"></span>
                   <span>Cybercrime Forensics</span>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
+              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#3b82f6] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
                 north_east
               </span>
             </article>
           </Link>
 
           <Link to="/blog" className="block group">
-            <article className="py-6 border-b border-white/5 hover:border-[#f46c38] transition-colors cursor-pointer flex justify-between items-start gap-4">
+            <article className="py-6 border-b border-white/5 hover:border-[#3b82f6] transition-colors cursor-pointer flex justify-between items-start gap-4">
               <div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-[#f46c38] transition-colors leading-tight mb-3">
+                <h3 className="text-2xl font-bold text-white group-hover:text-[#3b82f6] transition-colors leading-tight mb-3">
                   Power BI Analytics Dashboard Design
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mb-4 font-body-md">
@@ -699,11 +1071,11 @@ const Home: React.FC = () => {
                 </p>
                 <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">
                   <span>Published 2025</span>
-                  <span className="w-1 h-1 bg-[#f46c38] rounded-full"></span>
+                  <span className="w-1 h-1 bg-[#3b82f6] rounded-full"></span>
                   <span>Data Visualization</span>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
+              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#3b82f6] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
                 north_east
               </span>
             </article>
@@ -729,7 +1101,8 @@ const Home: React.FC = () => {
               { label: 'Listen Music', icon: '🎵' },
               { label: 'Story games', icon: '🎮' },
               { label: 'Gta 5 rp', icon: '🚗' },
-              { label: 'Freefire Panel (hack)', icon: '🛡️' },
+              { label: 'Freefire Panel', icon: '🛡️' },
+              { label: 'Fivem development', icon: '💻' },
               { label: 'Watching Webseries and movies', icon: '🎬' },
               { label: 'Travel', icon: '✈️' },
               { label: 'Explore New things for the life', icon: '💡' }
@@ -759,7 +1132,7 @@ const Home: React.FC = () => {
         </div>
 
         <div className="glass-card p-5 sm:p-8 lg:p-12 rounded-[1.8rem] sm:rounded-[2.5rem] relative overflow-hidden">
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#3b82f6]/5 blur-[120px] rounded-full pointer-events-none"></div>
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -769,7 +1142,7 @@ const Home: React.FC = () => {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="Enter name" 
                   type="text" 
                 />
@@ -780,7 +1153,7 @@ const Home: React.FC = () => {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="name@domain.com" 
                   type="email" 
                 />
@@ -792,7 +1165,7 @@ const Home: React.FC = () => {
               <select 
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
+                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
               >
                 <option value="Select range...">Select range...</option>
                 <option value="Freelance Consultation">Freelance Consultation</option>
@@ -807,14 +1180,14 @@ const Home: React.FC = () => {
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
                 placeholder="Describe your project goals..." 
                 rows={5}
               />
             </div>
             
             <button 
-              className="w-full bg-[#f46c38] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#f46c38]/20" 
+              className="w-full bg-[#3b82f6] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#3b82f6]/20" 
               type="submit"
             >
               Send Message

@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
       <Navbar />
 
       {/* Floating Left Social Dock */}
-      <div className="fixed left-6 top-1/2 -translate-y-1/2 z-[99] hidden lg:flex flex-col gap-6 items-center px-3.5 py-6 rounded-full glass-card shadow-2xl transition-all duration-300 hover:border-[#f46c38]/30">
+      <div className="fixed left-6 top-1/2 -translate-y-1/2 z-[20] hidden lg:flex flex-col gap-6 items-center px-3.5 py-6 rounded-full glass-card shadow-2xl transition-all duration-300 hover:border-[#3b82f6]/30">
         {/* GitHub */}
         <a 
           href="https://github.com/Mithunp123/" 

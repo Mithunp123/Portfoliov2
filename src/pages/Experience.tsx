@@ -44,7 +44,7 @@ const Experience: React.FC = () => {
     <div className="space-y-24">
       {/* Header Section */}
       <div>
-        <div className="flex items-center gap-2.5 text-xs text-[#f46c38] font-bold uppercase tracking-[0.25em] mb-4">
+        <div className="flex items-center gap-2.5 text-xs text-[#3b82f6] font-bold uppercase tracking-[0.25em] mb-4">
           <span className="material-symbols-outlined text-sm shrink-0 select-none animate-pulse">work</span>
           <span>My Experience</span>
         </div>
@@ -77,7 +77,7 @@ const Experience: React.FC = () => {
             </div>
 
             {/* Job Title / Role */}
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#3b82f6] transition-colors leading-none m-0">
               {exp.role} <span className="text-[var(--text-muted)] font-semibold lowercase text-xl sm:text-2xl">({exp.type})</span>
             </h3>
 

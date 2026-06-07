@@ -364,7 +364,7 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
         <div className="flex justify-end pt-4">
           <Link
             to="/tools"
-            className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#f46c38] hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors group"
+            className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#3b82f6] hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors group"
           >
             View Full Stack &amp; Integrations
             <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>

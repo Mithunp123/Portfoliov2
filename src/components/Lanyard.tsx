@@ -28,13 +28,15 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
+  onDragStateChange?: (dragging: boolean) => void;
 }
 
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
   fov = 20,
-  transparent = true
+  transparent = true,
+  onDragStateChange
 }: LanyardProps) {
   const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -54,7 +56,7 @@ export default function Lanyard({
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band isMobile={isMobile} />
+          <Band isMobile={isMobile} onDragStateChange={onDragStateChange} />
         </Physics>
         <Environment blur={0.75}>
           <Lightformer
@@ -95,9 +97,10 @@ interface BandProps {
   maxSpeed?: number;
   minSpeed?: number;
   isMobile?: boolean;
+  onDragStateChange?: (dragging: boolean) => void;
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
+function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, onDragStateChange }: BandProps) {
   const band = useRef<any>(null);
   const fixed = useRef<any>(null);
   const j1 = useRef<any>(null);
@@ -160,13 +163,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
         ctx.font = `800 ${fontSize}px "Inter", "Plus Jakarta Sans", "Segoe UI", sans-serif`;
         ctx.textBaseline = 'middle';
 
-        // Create the identical premium saffron-to-gold linear gradient matching <GradientText />
+        // Create the identical premium blue-to-cyan linear gradient matching <GradientText />
         const textGrad = ctx.createLinearGradient(leftBoundary, 0, rightBoundary, 0);
-        textGrad.addColorStop(0, '#f46c38');
-        textGrad.addColorStop(0.25, '#ffb347');
-        textGrad.addColorStop(0.5, '#f46c38');
-        textGrad.addColorStop(0.75, '#ffb347');
-        textGrad.addColorStop(1, '#f46c38');
+        textGrad.addColorStop(0, '#3b82f6');
+        textGrad.addColorStop(0.25, '#06b6d4');
+        textGrad.addColorStop(0.5, '#3b82f6');
+        textGrad.addColorStop(0.75, '#06b6d4');
+        textGrad.addColorStop(1, '#3b82f6');
 
         // Draw the background container capsule for contrast and readability
         const containerHeight = fontSize * 2.2;
@@ -189,7 +192,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
 
         // Left side text: @ SOFTWARE ENGINEER
         const leftTextX = leftBoundary + paddingX + (img.width * 0.018);
-        ctx.fillStyle = '#f46c38'; // Keeps the @ symbol in orange as requested
+        ctx.fillStyle = '#3b82f6'; // Keeps the @ symbol in blue
         ctx.fillText('@', leftTextX, textCenterY);
         const atWidth = ctx.measureText('@').width;
         ctx.fillStyle = textGrad; // Shifting gradient color for the words
@@ -202,7 +205,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
         const rightAtWidth = ctx.measureText(rightTextSymbol).width;
         const rightTextX = (rightBoundary - paddingX - (img.width * 0.018)) - nameWidth - rightAtWidth - 4;
 
-        ctx.fillStyle = '#f46c38'; // Keeps the @ symbol in orange as requested
+        ctx.fillStyle = '#3b82f6'; // Keeps the @ symbol in blue
         ctx.fillText(rightTextSymbol, rightTextX, textCenterY);
         ctx.fillStyle = textGrad; // Shifting gradient color for the words
         ctx.fillText(rightTextName, rightTextX + rightAtWidth + 4, textCenterY);
@@ -311,10 +314,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
             onPointerUp={(e: any) => {
               e.target.releasePointerCapture(e.pointerId);
               drag(false);
+              onDragStateChange?.(false);
             }}
             onPointerDown={(e: any) => {
               e.target.setPointerCapture(e.pointerId);
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
+              onDragStateChange?.(true);
             }}
           >
             <mesh geometry={nodes.card.geometry} scale={[1.45, 1.35, 1]} position={[0, -0.39, 0]}>
@@ -322,9 +327,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
                 map={cardTexture || baseTexture}
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
-                clearcoatRoughness={0.15}
-                roughness={0.9}
-                metalness={0.8}
+                clearcoatRoughness={0.1}
+                roughness={0.15}
+                metalness={0.0}
               />
             </mesh>
 
@@ -342,7 +347,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={1}
+          lineWidth={0.55}
         />
       </mesh>
     </>

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #f46c38;
-  --color-brand-orange: #f46c38;
-  --color-onyx-orange: #f46c38;
-  --color-primary-container: #f46c38;
+  --color-brand: #3b82f6;
+  --color-brand-orange: #3b82f6;
+  --color-onyx-orange: #3b82f6;
+  --color-primary-container: #3b82f6;
   
   --color-surface: #151312;
   --color-onyx-black: #151312;
@@ -74,10 +74,10 @@
   --nav-pill-border: rgba(255, 255, 255, 0.1);
 
   /* Accent (unchanged across themes) */
-  --accent: #f46c38;
-  --accent-hover: #ff7d4a;
-  --accent-glow: rgba(244, 108, 56, 0.3);
-  --accent-bg-subtle: rgba(244, 108, 56, 0.05);
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.3);
+  --accent-bg-subtle: rgba(59, 130, 246, 0.05);
 
   /* Scrollbar */
   --scrollbar-track: #0c0c0c;
@@ -92,14 +92,14 @@
   --download-btn-border: #e5e5e5;
   --social-icon-bg: rgba(255, 255, 255, 0.05);
   --social-icon-border: rgba(255, 255, 255, 0.1);
-  --github-accent: #00ffd0;
+  --github-accent: #3b82f6;
 
   /* White/black utility (for theme-aware white/black references) */
   --color-white-adaptive: #ffffff;
   --color-black-adaptive: #000000;
 
   /* Journey card */
-  --journey-dot-ring: rgba(244, 108, 56, 0.3);
+  --journey-dot-ring: rgba(59, 130, 246, 0.3);
   --journey-dot-border: #0c0c0c;
 }
 
@@ -135,10 +135,10 @@
   --nav-pill-border: rgba(0, 0, 0, 0.1);
 
   /* Accent (unchanged) */
-  --accent: #f46c38;
-  --accent-hover: #e55d2a;
-  --accent-glow: rgba(244, 108, 56, 0.2);
-  --accent-bg-subtle: rgba(244, 108, 56, 0.06);
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.2);
+  --accent-bg-subtle: rgba(59, 130, 246, 0.06);
 
   /* Scrollbar */
   --scrollbar-track: #f5f3f0;
@@ -153,14 +153,14 @@
   --download-btn-border: #333333;
   --social-icon-bg: rgba(0, 0, 0, 0.04);
   --social-icon-border: rgba(0, 0, 0, 0.08);
-  --github-accent: #059669;
+  --github-accent: #2563eb;
 
   /* White/black utility */
   --color-white-adaptive: #1a1a1a;
   --color-black-adaptive: #ffffff;
 
   /* Journey card */
-  --journey-dot-ring: rgba(244, 108, 56, 0.25);
+  --journey-dot-ring: rgba(59, 130, 246, 0.25);
   --journey-dot-border: #f5f3f0;
 }
 
@@ -241,7 +241,7 @@ body {
 
 /* Radial dot grid patterns (dotted arcs) */
 .dotted-arc {
-  background-image: radial-gradient(circle at center, #f46c38 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle at center, #3b82f6 1.5px, transparent 1.5px);
   background-size: 12px 12px;
   mask-image: radial-gradient(circle at 100% 100%, black 69%, transparent 70%);
   -webkit-mask-image: radial-gradient(circle at 100% 100%, black 69%, transparent 70%);
@@ -252,7 +252,7 @@ body {
 }
 
 .flame-glow {
-  box-shadow: 0 0 20px 2px rgba(244, 108, 56, 0.4);
+  box-shadow: 0 0 20px 2px rgba(59, 130, 246, 0.4);
 }
 
 /* Journey cards - Uniform professional sizing */

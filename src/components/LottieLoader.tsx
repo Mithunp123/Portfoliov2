@@ -5,14 +5,14 @@ interface LottieLoaderProps {
   url: string;
   style?: React.CSSProperties;
   fallbackIcon?: string; // Material Symbols icon name
-  fallbackColor?: string; // Text/Icon color class, e.g., 'text-[#f46c38]'
+  fallbackColor?: string; // Text/Icon color class, e.g., 'text-[#3b82f6]'
 }
 
 const LottieLoader: React.FC<LottieLoaderProps> = ({ 
   url, 
   style = { width: '100%', height: '100%' }, 
   fallbackIcon = 'circle',
-  fallbackColor = 'text-[#f46c38]'
+  fallbackColor = 'text-[#3b82f6]'
 }) => {
   const [animationData, setAnimationData] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);

@@ -24,7 +24,7 @@ const timelineData: YearGroup[] = [
         issuer: "HackerRank Academy",
         skills: ["OOP Concepts", "Data Structures", "Algorithmic Logic"],
         pdfUrl: "/certificate/python_basic certificate.pdf",
-        accentColor: "#f46c38",
+        accentColor: "#3b82f6",
         badge: "Verified Expert"
       }
     ]
@@ -95,7 +95,7 @@ const Honors: React.FC = () => {
         <div>
           <Link 
             to="/" 
-            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#f46c38] hover:text-[var(--text-primary)] transition-colors duration-300 group"
+            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#3b82f6] hover:text-[var(--text-primary)] transition-colors duration-300 group"
           >
             <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
             Back to Dashboard
@@ -104,7 +104,7 @@ const Honors: React.FC = () => {
 
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-[#f46c38] rounded-full animate-ping"></span>
+            <span className="w-2 h-2 bg-[#3b82f6] rounded-full animate-ping"></span>
             <p className="text-[var(--text-muted)] text-[10px] font-extrabold uppercase tracking-[0.3em] font-mono" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               Accredited Portfolio timeline
             </p>
@@ -132,8 +132,8 @@ const Honors: React.FC = () => {
           { value: "6", label: "Total Certificates", icon: "workspace_premium" }
         ].map((stat, idx) => (
           <div key={idx} className="p-8 text-center group hover:bg-[var(--bg-black-overlay)] transition-colors duration-300">
-            <span className="material-symbols-outlined text-[#f46c38] text-2xl mb-3 block group-hover:scale-110 transition-transform duration-300">{stat.icon}</span>
-            <div className="text-4xl font-extrabold text-[var(--text-primary)] mb-1 group-hover:text-[#f46c38] transition-colors duration-300 font-mono" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <span className="material-symbols-outlined text-[#3b82f6] text-2xl mb-3 block group-hover:scale-110 transition-transform duration-300">{stat.icon}</span>
+            <div className="text-4xl font-extrabold text-[var(--text-primary)] mb-1 group-hover:text-[#3b82f6] transition-colors duration-300 font-mono" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               {stat.value}
             </div>
             <div className="text-[9px] uppercase tracking-[0.25em] text-[var(--text-muted)] font-extrabold font-mono" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -154,7 +154,7 @@ const Honors: React.FC = () => {
         {/* Tree timeline wrapper */}
         <div className="relative pl-6 md:pl-12 w-full max-w-full">
           {/* Main vertical tree axis line - dynamic color gradient */}
-          <div className="absolute left-[7px] md:left-[15px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#f46c38] via-emerald-500 to-purple-500 opacity-20 pointer-events-none"></div>
+          <div className="absolute left-[7px] md:left-[15px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#3b82f6] via-emerald-500 to-purple-500 opacity-20 pointer-events-none"></div>
  
           {/* Chronological Year Groups */}
           <div className="space-y-12">
@@ -219,7 +219,7 @@ const Honors: React.FC = () => {
                             </div>
  
                             <h4 
-                              className="text-base sm:text-lg font-black uppercase tracking-tight text-[var(--text-primary)] leading-tight group-hover:text-[#f46c38] transition-colors duration-300 truncate"
+                              className="text-base sm:text-lg font-black uppercase tracking-tight text-[var(--text-primary)] leading-tight group-hover:text-[#3b82f6] transition-colors duration-300 truncate"
                               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                             >
                               {cert.title}
@@ -240,8 +240,8 @@ const Honors: React.FC = () => {
                           </div>
  
                           {/* Right Panel: View Certificate Action with Diagonal Arrow */}
-                          <div className="flex items-center justify-center shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[var(--bg-black-overlay)] border border-[var(--border-subtle)] group-hover:border-[#f46c38] group-hover:bg-[#f46c38]/5 transition-all duration-300">
-                            <span className="material-symbols-outlined text-[var(--text-muted)] group-hover:text-[#f46c38] transition-colors duration-300 transform group-hover:rotate-45 text-lg shrink-0">
+                          <div className="flex items-center justify-center shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[var(--bg-black-overlay)] border border-[var(--border-subtle)] group-hover:border-[#3b82f6] group-hover:bg-[#3b82f6]/5 transition-all duration-300">
+                            <span className="material-symbols-outlined text-[var(--text-muted)] group-hover:text-[#3b82f6] transition-colors duration-300 transform group-hover:rotate-45 text-lg shrink-0">
                               north_east
                             </span>
                           </div>
@@ -263,7 +263,7 @@ const Honors: React.FC = () => {
       <section className="flex justify-center pt-4">
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#f46c38] hover:text-[var(--text-primary)] transition-colors duration-300 group border border-[#f46c38]/20 px-8 py-4 rounded-full bg-[#f46c38]/5 hover:bg-[#f46c38] hover:border-[#f46c38] shadow-lg shadow-[#f46c38]/5"
+          className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#3b82f6] hover:text-[var(--text-primary)] transition-colors duration-300 group border border-[#3b82f6]/20 px-8 py-4 rounded-full bg-[#3b82f6]/5 hover:bg-[#3b82f6] hover:border-[#3b82f6] shadow-lg shadow-[#3b82f6]/5"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           <span className="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>

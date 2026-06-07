@@ -265,7 +265,7 @@ const GitHubActivity: React.FC = () => {
     <div className="space-y-24">
       {/* Section Header */}
       <div>
-        <div className="flex items-center gap-2.5 text-xs text-[#f46c38] font-bold uppercase tracking-[0.25em] mb-4">
+        <div className="flex items-center gap-2.5 text-xs text-[#3b82f6] font-bold uppercase tracking-[0.25em] mb-4">
           <span className="material-symbols-outlined text-sm shrink-0 select-none animate-pulse">monitoring</span>
           <span>GitHub Dashboard</span>
         </div>

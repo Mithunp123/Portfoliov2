@@ -72,14 +72,14 @@ const Blog: React.FC = () => {
             <article key={idx} className="group relative cursor-pointer">
               <div className="flex justify-between items-start mb-4">
                 <div className="max-w-[85%]">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors mb-3 leading-snug">
+                  <h3 className="text-2xl lg:text-3xl font-bold text-[var(--text-primary)] group-hover:text-[#3b82f6] transition-colors mb-3 leading-snug">
                     {article.title}
                   </h3>
                   <p className="text-[var(--text-secondary)] text-base leading-relaxed line-clamp-3 mb-6 font-body-md">
                     {article.excerpt}
                   </p>
                 </div>
-                <span className="text-[#f46c38] material-symbols-outlined text-3xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0 mt-1">
+                <span className="text-[#3b82f6] material-symbols-outlined text-3xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0 mt-1">
                   north_east
                 </span>
               </div>
@@ -87,7 +87,7 @@ const Blog: React.FC = () => {
                 <span>{article.date}</span>
                 <span>{article.readTime}</span>
               </div>
-              <div className="mt-8 h-px w-full bg-[var(--border-medium)] group-hover:bg-[#f46c38]/20 transition-colors"></div>
+              <div className="mt-8 h-px w-full bg-[var(--border-medium)] group-hover:bg-[#3b82f6]/20 transition-colors"></div>
             </article>
           ))}
         </div>
@@ -101,7 +101,7 @@ const Blog: React.FC = () => {
         </div>
 
         <div className="glass-card p-5 sm:p-8 lg:p-12 rounded-[1.8rem] sm:rounded-[2.5rem] relative overflow-hidden">
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#f46c38]/5 blur-[120px] rounded-full pointer-events-none"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#3b82f6]/5 blur-[120px] rounded-full pointer-events-none"></div>
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -111,7 +111,7 @@ const Blog: React.FC = () => {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="Enter name" 
                   type="text" 
                 />
@@ -122,7 +122,7 @@ const Blog: React.FC = () => {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="name@domain.com" 
                   type="email" 
                 />
@@ -134,7 +134,7 @@ const Blog: React.FC = () => {
               <select 
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
+                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
               >
                 <option value="Select range...">Select range...</option>
                 <option value="Freelance Consultation">Freelance Consultation</option>
@@ -149,14 +149,14 @@ const Blog: React.FC = () => {
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#3b82f6] focus:border-[#3b82f6] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
                 placeholder="Describe your project goals..." 
                 rows={5}
               />
             </div>
             
             <button 
-              className="w-full bg-[#f46c38] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#f46c38]/20" 
+              className="w-full bg-[#3b82f6] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#3b82f6]/20" 
               type="submit"
             >
               Send Message
