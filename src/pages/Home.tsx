@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Lanyard from '../components/Lanyard';
 import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
 import LightRays from '../components/LightRays';
 import SkillsSection from '../components/SkillsSection';
 import GitHubActivity from '../components/GitHubActivity';
-import MobileLanyard from '../components/MobileLanyard';
 
 
 interface MainProject {
@@ -86,6 +86,41 @@ const journeyEntries: JourneyEntry[] = [
     description: "Architecting distributed multi-agent systems and high-scale neural models. Investigating state-of-the-art developments in vector search and cognitive pipelines."
   }
 ];
+
+const welcomeContainerVariants: any = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const welcomeChildVariants: any = {
+  hidden: { y: "110%", opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+const welcomeBadgeVariants: any = {
+  hidden: { x: -20, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -178,12 +213,12 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section data-purpose="hero" className="pt-4 lg:pt-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start mb-20">
-          {/* Lanyard Visual Container - Rendered 2nd on mobile, 1st on desktop */}
-          <div className="w-full lg:w-[550px] order-2 lg:order-1 flex items-center justify-center shrink-0">
+          {/* Lanyard Visual Container - Rendered on desktop only */}
+          <div className="hidden lg:flex lg:w-[550px] order-2 lg:order-1 items-center justify-center shrink-0">
             {/* Desktop 3D Canvas Lanyard */}
             <div 
               ref={lanyardParentRef}
-              className="hidden lg:flex w-full h-[680px] relative items-center justify-center"
+              className="w-full h-[680px] relative items-center justify-center"
             >
               <div 
                 ref={lanyardContainerRef} 
@@ -193,17 +228,51 @@ const Home: React.FC = () => {
                 <Lanyard position={[0, 0, 14]} gravity={[0, -40, 0]} />
               </div>
             </div>
-
-            {/* Mobile/Tablet 2D Lanyard Tilt Card */}
-            <div className="flex lg:hidden w-full max-w-[340px] h-[420px] min-[375px]:h-[480px] justify-center items-center relative">
-              <MobileLanyard />
-            </div>
           </div>
 
           {/* Software Engineer Identity Content - Rendered 1st on mobile, 2nd on desktop */}
-          <div className="flex-1 w-full flex flex-col justify-between min-h-[500px] lg:min-h-[750px] order-1 lg:order-2">
+          <div className="flex-1 w-full flex flex-col justify-between min-h-0 lg:min-h-[750px] order-1 lg:order-2">
             <div>
               <div className="mb-8 space-y-4 -ml-6">
+                {/* Mobile-only Welcome Intro with Staggered Mask Reveal Animation */}
+                <motion.div 
+                  variants={welcomeContainerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="block lg:hidden mb-6 px-6"
+                >
+                  {/* Badge Row (Slide-in) */}
+                  <div className="overflow-hidden mb-2">
+                    <motion.div 
+                      variants={welcomeBadgeVariants}
+                      className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] text-[#f46c38]"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#f46c38] animate-pulse" />
+                      Hey,
+                    </motion.div>
+                  </div>
+
+                  {/* Main Name Row (Staggered Word Mask-Reveal) */}
+                  <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] flex flex-wrap items-center gap-x-2.5 overflow-hidden py-1 leading-normal">
+                    <span className="inline-block overflow-hidden py-0.5">
+                      <motion.span variants={welcomeChildVariants} className="inline-block">
+                        I'm
+                      </motion.span>
+                    </span>
+                    <span className="inline-block overflow-hidden py-0.5">
+                      <motion.span variants={welcomeChildVariants} className="inline-block font-black">
+                        <GradientText
+                          colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
+                          animationSpeed={4}
+                          showBorder={false}
+                          className="!m-0 !max-w-none !justify-start !rounded-none !bg-transparent !p-0 !cursor-default select-none font-black"
+                        >
+                          Mithun
+                        </GradientText>
+                      </motion.span>
+                    </span>
+                  </h1>
+                </motion.div>
                 <div className="w-fit border border-transparent hover:border-[var(--border-medium)] py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
                     <GradientText

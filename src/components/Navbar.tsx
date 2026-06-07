@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
+
 
 const Navbar: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
             <img 
               src="/Top-left.png" 
               alt="Logo" 
-              className="h-12 sm:h-16 xl:h-28 w-auto object-contain hover:scale-102 transition-transform duration-300 select-none" 
+              className="h-16 sm:h-20 xl:h-28 w-auto object-contain hover:scale-102 transition-transform duration-300 select-none" 
               draggable="false"
             />
           </NavLink>
@@ -105,20 +105,18 @@ const Navbar: React.FC = () => {
         {/* 3. Right Side: Available for Work badge and Sound controller */}
         <div className="flex items-center gap-3 sm:gap-6 pointer-events-auto shrink-0 select-none">
           
-          {/* Available now for work badge pill (Responsive layout and texts) */}
+          {/* Available now for work badge pill */}
           <div 
-            className="style-module-scss-module__Ooia0G__availability flex items-center gap-2 border px-3.5 py-2.5 rounded-full font-mono text-[8px] sm:text-[9.5px] uppercase tracking-widest font-bold shadow-md select-none transition-all duration-300 hover:brightness-105" 
+            className="style-module-scss-module__Ooia0G__availability flex items-center gap-2 border px-3.5 py-1.5 rounded-full font-sans text-[9.5px] sm:text-[11.5px] normal-case tracking-normal font-medium shadow-md select-none transition-all duration-300 hover:brightness-105" 
             style={{ borderColor: '#219653', backgroundColor: 'rgba(33, 150, 83, 0.15)' }}
           >
-            <div className="style-module-scss-module__Ooia0G__text text-[var(--text-primary)] hidden sm:block">available now for work</div>
-            <div className="style-module-scss-module__Ooia0G__text text-[var(--text-primary)] block sm:hidden">available</div>
+            <div className="style-module-scss-module__Ooia0G__text text-[var(--text-primary)]">available now for work</div>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className="w-2.5 h-2.5 sm:w-3 h-3 flex items-center justify-center shrink-0">
               <circle cx="6" cy="6" r="4.5" fill="#219653" className="animate-pulse"></circle>
             </svg>
           </div>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
+
 
           {/* Music Sound Toggle controller */}
           <span 

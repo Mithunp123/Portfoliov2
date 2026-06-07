@@ -183,6 +183,10 @@ canvas, video, iframe, img,
 /* ═══════════════════════════════════════════════════════════
    BASE STYLES
    ═══════════════════════════════════════════════════════════ */
+html, body {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
