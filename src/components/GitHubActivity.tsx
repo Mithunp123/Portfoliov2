@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 interface GitHubStats {
   publicRepos: number;
@@ -89,6 +91,8 @@ const generateFallbackContributions = (year: number): ContributionDay[] => {
 };
 
 const GitHubActivity: React.FC = () => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const username = 'Mithunp123';
   const [activeYear, setActiveYear] = useState<number>(2026);
   const [loading, setLoading] = useState(true);
@@ -114,6 +118,12 @@ const GitHubActivity: React.FC = () => {
   ]);
 
   const [contributionGraph, setContributionGraph] = useState<ContributionResponse | null>(null);
+  const [hoveredCell, setHoveredCell] = useState<{
+    count: number;
+    date: string;
+    x: number;
+    y: number;
+  } | null>(null);
 
   useEffect(() => {
     const fetchGitHubData = async () => {
@@ -271,9 +281,9 @@ const GitHubActivity: React.FC = () => {
       <div className="space-y-8 md:space-y-12">
         
         {/* Row 1: Statistics */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-white/[0.04]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-[var(--border-subtle)]">
           <div className="lg:col-span-3">
-            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[#5a5a5a] group-hover/row:text-white transition-colors duration-300 select-none">
+            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[var(--text-subtle)] group-hover/row:text-[var(--text-primary)] transition-colors duration-300 select-none">
               Metrics
             </h3>
           </div>
@@ -285,26 +295,26 @@ const GitHubActivity: React.FC = () => {
               { label: 'Commits', value: stats.recentCommits }
             ].map((m, idx) => (
               <div key={idx} className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#00ffd0]">
+                <span className="text-3xl sm:text-4xl font-extrabold text-[var(--github-accent)]">
                   {loading ? '-' : m.value}
                 </span>
-                <span className="text-xs font-mono uppercase text-gray-500 font-bold select-none">{m.label}</span>
+                <span className="text-xs font-mono uppercase text-[var(--text-muted)] font-bold select-none">{m.label}</span>
               </div>
             ))}
           </div>
         </div>
-
+ 
         {/* Row 2: Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-white/[0.04]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-[var(--border-subtle)]">
           <div className="lg:col-span-3 flex justify-between items-baseline lg:flex-col lg:justify-start lg:gap-2">
-            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[#5a5a5a] group-hover/row:text-white transition-colors duration-300 select-none">
+            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[var(--text-subtle)] group-hover/row:text-[var(--text-primary)] transition-colors duration-300 select-none">
               History
             </h3>
             <a
               href={`https://github.com/${username}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] font-bold text-gray-500 hover:text-white flex items-center gap-1 transition-colors font-mono tracking-widest uppercase select-none"
+              className="text-[10px] font-bold text-[var(--text-muted)] hover:text-[var(--text-primary)] flex items-center gap-1 transition-colors font-mono tracking-widest uppercase select-none"
             >
               Profile
               <span className="material-symbols-outlined text-[12px]">north_east</span>
@@ -314,30 +324,30 @@ const GitHubActivity: React.FC = () => {
             {activities.map((act, idx) => (
               <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 group/item">
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-xs text-[#00ffd0]">subdirectory_arrow_right</span>
-                  <span className="text-gray-300 group-hover/item:text-[#00ffd0] font-semibold text-base transition-colors duration-200">
+                  <span className="material-symbols-outlined text-xs text-[var(--github-accent)]">subdirectory_arrow_right</span>
+                  <span className="text-[var(--text-secondary)] group-hover/item:text-[var(--github-accent)] font-semibold text-base transition-colors duration-200">
                     {act.type} {act.repoName}
                   </span>
                 </div>
-                <span className="text-xs font-mono text-gray-600 sm:text-right shrink-0 select-none">{act.date}</span>
+                <span className="text-xs font-mono text-[var(--text-dim)] sm:text-right shrink-0 select-none">{act.date}</span>
               </div>
             ))}
           </div>
         </div>
-
+ 
         {/* Row 3: Languages */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-white/[0.04]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group/row py-8 border-b border-[var(--border-subtle)]">
           <div className="lg:col-span-3">
-            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[#5a5a5a] group-hover/row:text-white transition-colors duration-300 select-none">
+            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[var(--text-subtle)] group-hover/row:text-[var(--text-primary)] transition-colors duration-300 select-none">
               Languages
             </h3>
           </div>
           <div className="lg:col-span-9 flex flex-wrap gap-x-10 gap-y-6 items-center">
             {languages.map((lang, idx) => (
               <div key={idx} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00ffd0] shrink-0 animate-pulse"></span>
-                <span className="text-gray-300 font-bold text-base">{lang.name}</span>
-                <span className="text-xs font-mono text-gray-600">({lang.count})</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--github-accent)] shrink-0 animate-pulse"></span>
+                <span className="text-[var(--text-secondary)] font-bold text-base">{lang.name}</span>
+                <span className="text-xs font-mono text-[var(--text-dim)]">({lang.count})</span>
               </div>
             ))}
           </div>
@@ -346,27 +356,30 @@ const GitHubActivity: React.FC = () => {
       </div>
 
       {/* Contribution Graph Section */}
-      <div className="glass-card rounded-[2.5rem] p-6 sm:p-8 lg:p-10 border border-white/5 bg-[#121212]/30 relative overflow-hidden">
+      <div className="glass-card rounded-[2.5rem] p-6 sm:p-8 lg:p-10 border border-[var(--border-subtle)] bg-[var(--bg-card)] relative overflow-hidden">
         {/* Ambient Glows */}
-        <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full blur-[100px] pointer-events-none bg-blue-500/5 transition-colors duration-700"></div>
+        <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full blur-[100px] pointer-events-none bg-[var(--accent-bg-subtle)] transition-colors duration-700"></div>
         
         {/* Calendar Header with years */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8 border-b border-white/5 pb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-2 border-b border-[var(--border-subtle)] pb-6">
           <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-2xl text-gray-400">calendar_month</span>
-            <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight select-none">
+            <span className="material-symbols-outlined text-2xl text-[var(--text-secondary)]">calendar_month</span>
+            <h3 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] uppercase tracking-tight select-none">
               Contribution Graph
             </h3>
           </div>
           
           <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto justify-end">
             {/* Year Selector */}
-            <div className="flex bg-black/20 rounded-xl p-1 border border-white/5 text-[10px] font-mono w-fit">
+            <div className="flex bg-[var(--bg-black-overlay)] rounded-xl p-1 border border-[var(--border-subtle)] text-[10px] font-mono w-fit">
               {[2026, 2025, 2024, 2023].map((yr) => (
                 <button
                   key={yr}
-                  onClick={() => setActiveYear(yr)}
-                  className={`px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${activeYear === yr ? 'bg-white/10 text-white border border-white/10' : 'text-gray-500 hover:text-white'}`}
+                  onClick={() => {
+                    setActiveYear(yr);
+                    setHoveredCell(null);
+                  }}
+                  className={`px-2.5 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${activeYear === yr ? 'bg-[var(--border-medium)] text-[var(--text-primary)] border border-[var(--border-medium)]' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {yr}
                 </button>
@@ -376,59 +389,110 @@ const GitHubActivity: React.FC = () => {
         </div>
 
         {/* Heatmap Grid Container */}
-        <div className="overflow-x-auto w-full pb-4">
+        <div className="overflow-x-auto w-full pt-8 pb-4">
           <div className="min-w-[650px] space-y-2">
             
             {/* Months Header Label Row */}
-            <div className="grid grid-cols-12 text-[10px] text-gray-600 font-bold font-mono select-none px-1">
+            <div className="grid grid-cols-12 text-[10px] text-[var(--text-dim)] font-bold font-mono select-none px-1">
               {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((m) => (
                 <div key={m} className="text-center">{m}</div>
               ))}
             </div>
 
             {/* Grid Box: 53 columns by 7 rows */}
-            <div className="grid grid-flow-col grid-rows-7 gap-[3px] w-full h-[88px] p-1 bg-black/20 border border-white/[0.02] rounded-lg">
+            <div className="grid grid-flow-col grid-rows-7 gap-[3px] w-full h-[88px] p-1 bg-[var(--bg-black-overlay)] border border-[var(--border-subtle)] rounded-lg relative">
               {getGraphDataForYear().map((cell, idx) => {
-                let colorClass = 'bg-white/[0.03]'; // L0
+                let colorClass = isDark ? 'bg-white/[0.03]' : 'bg-black/[0.03]'; // L0
                 
-                if (cell.level === 1) colorClass = 'bg-blue-900/40';
-                else if (cell.level === 2) colorClass = 'bg-blue-700/60';
-                else if (cell.level === 3) colorClass = 'bg-blue-500/80';
-                else if (cell.level === 4) colorClass = 'bg-[#00ffd0] shadow-[0_0_8px_rgba(0,255,208,0.4)]';
-
-                const cellDate = cell.date ? new Date(cell.date).toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                }) : '';
-                const tooltipText = cell.date 
-                  ? `${cell.count} contributions on ${cellDate}`
-                  : 'No data';
+                if (cell.level === 1) colorClass = isDark ? 'bg-blue-900/40' : 'bg-emerald-100';
+                else if (cell.level === 2) colorClass = isDark ? 'bg-blue-700/60' : 'bg-emerald-200';
+                else if (cell.level === 3) colorClass = isDark ? 'bg-blue-500/80' : 'bg-emerald-400';
+                else if (cell.level === 4) colorClass = 'bg-[var(--github-accent)] shadow-[0_0_8px_var(--github-accent)]';
 
                 return (
                   <div
                     key={idx}
-                    className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-300 ${colorClass}`}
-                    title={tooltipText}
+                    className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-300 ${colorClass} cursor-pointer`}
+                    onMouseEnter={(e) => {
+                      if (!cell.date) return;
+                      const target = e.currentTarget;
+                      const rect = target.getBoundingClientRect();
+                      const parent = target.parentElement;
+                      if (parent) {
+                        const parentRect = parent.getBoundingClientRect();
+                        setHoveredCell({
+                          count: cell.count,
+                          date: cell.date,
+                          x: rect.left - parentRect.left + rect.width / 2,
+                          y: rect.top - parentRect.top - 6,
+                        });
+                      }
+                    }}
+                    onMouseLeave={() => setHoveredCell(null)}
                   ></div>
                 );
               })}
+
+              <AnimatePresence>
+                {hoveredCell && (
+                  <div
+                    className="absolute z-50 pointer-events-none"
+                    style={{
+                      left: hoveredCell.x,
+                      top: hoveredCell.y,
+                      transform: 'translate(-50%, -100%)',
+                    }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: 4, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                      transition={{ duration: 0.1, ease: 'easeOut' }}
+                      className="px-3 py-2 text-[11px] font-sans rounded-xl border shadow-xl flex flex-col items-center gap-0.5 whitespace-nowrap relative"
+                      style={{
+                        backgroundColor: 'var(--tooltip-bg)',
+                        borderColor: 'var(--tooltip-border)',
+                        color: 'var(--text-primary)',
+                      }}
+                    >
+                      <div className="font-extrabold text-[var(--github-accent)]">
+                        {hoveredCell.count === 0 ? 'No' : hoveredCell.count} {hoveredCell.count === 1 ? 'contribution' : 'contributions'}
+                      </div>
+                      <div className="text-[9px] text-[var(--text-secondary)] font-medium">
+                        {new Date(hoveredCell.date).toLocaleDateString(undefined, {
+                          weekday: 'short',
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </div>
+                      {/* Tooltip Arrow */}
+                      <div 
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full w-0 h-0 border-x-[5px] border-x-transparent border-t-[5px]"
+                        style={{
+                          borderTopColor: 'var(--tooltip-bg)',
+                        }}
+                      />
+                    </motion.div>
+                  </div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
 
         {/* Legend / Metrics Info footer */}
-        <div className="flex justify-between items-center text-[10px] font-mono text-gray-500 font-bold select-none pt-4 border-t border-white/5">
+        <div className="flex justify-between items-center text-[10px] font-mono text-[var(--text-muted)] font-bold select-none pt-4 border-t border-[var(--border-subtle)]">
           <div>
             {totalContributions} contributions in {activeYear}
           </div>
           <div className="flex items-center gap-1.5">
             <span>Less</span>
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-white/[0.03]"></span>
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-blue-900/40"></span>
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-blue-700/60"></span>
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-blue-500/80"></span>
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-[#00ffd0]"></span>
+            <span className={`w-2.5 h-2.5 rounded-[2px] ${isDark ? 'bg-white/[0.03]' : 'bg-black/[0.03]'}`}></span>
+            <span className={`w-2.5 h-2.5 rounded-[2px] ${isDark ? 'bg-blue-900/40' : 'bg-emerald-100'}`}></span>
+            <span className={`w-2.5 h-2.5 rounded-[2px] ${isDark ? 'bg-blue-700/60' : 'bg-emerald-200'}`}></span>
+            <span className={`w-2.5 h-2.5 rounded-[2px] ${isDark ? 'bg-blue-500/80' : 'bg-emerald-400'}`}></span>
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-[var(--github-accent)]"></span>
             <span>More</span>
           </div>
         </div>

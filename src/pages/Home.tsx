@@ -195,7 +195,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Mobile/Tablet 2D Lanyard Tilt Card */}
-            <div className="flex lg:hidden w-full max-w-[340px] h-[480px] justify-center items-center relative">
+            <div className="flex lg:hidden w-full max-w-[340px] h-[420px] min-[375px]:h-[480px] justify-center items-center relative">
               <MobileLanyard />
             </div>
           </div>
@@ -204,7 +204,7 @@ const Home: React.FC = () => {
           <div className="flex-1 w-full flex flex-col justify-between min-h-[500px] lg:min-h-[750px] order-1 lg:order-2">
             <div>
               <div className="mb-8 space-y-4 -ml-6">
-                <div className="w-fit border border-transparent hover:border-white py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
+                <div className="w-fit border border-transparent hover:border-[var(--border-medium)] py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
                     <GradientText
                       colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
@@ -216,7 +216,7 @@ const Home: React.FC = () => {
                     </GradientText>
                   </h2>
                 </div>
-                <div className="w-fit border border-transparent hover:border-white py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
+                <div className="w-fit border border-transparent hover:border-[var(--border-medium)] py-2 px-6 transition-all duration-300 cursor-default select-none rounded-none">
                   <h2 className="text-6xl md:text-8xl xl:text-9xl font-black uppercase leading-[0.9] tracking-tighter">
                     <GradientText
                       colors={["#f46c38", "#ffb347", "#f46c38", "#ffb347", "#f46c38"]}
@@ -231,36 +231,36 @@ const Home: React.FC = () => {
               </div>
               
               <div className="mb-12 space-y-6">
-                <p className="text-gray-400 text-base xl:text-lg leading-relaxed font-body-md text-justify">
+                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md text-justify">
                   I engineer high-impact digital experiences where Artificial Intelligence, Data Science, and Software Architecture converge. As a Full Stack Developer, I specialize in building scalable web applications, intelligent automation systems, and high-performance data platforms that solve real-world operational challenges.
                 </p>
-                <p className="text-gray-400 text-base xl:text-lg leading-relaxed font-body-md text-justify">
+                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md text-justify">
                   From developing AI-powered forensics systems presented to cybercrime units to architecting robust full-stack business ecosystems serving real merchants, I transform ambitious ideas into production-ready products. My approach merges clean, rigorous engineering with modern technologies to deliver systems that are reliable, secure, and built to scale.
                 </p>
               </div>
             </div>
 
             {/* Stats & Resume Download */}
-            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between w-full gap-8 border-t border-white/5 pt-8">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between w-full gap-8 border-t border-[var(--border-subtle)] pt-8">
               {/* Stats Block */}
               <div className="flex flex-wrap gap-x-10 gap-y-6 sm:gap-x-12 shrink-0">
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">3+</div>
+                  <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">3+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Years Coding</div>
                 </div>
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">12+</div>
+                  <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">12+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Real Projects</div>
                 </div>
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">4+</div>
+                  <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">4+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold">Clients Served</div>
                 </div>
                 <div>
-                  <div className="text-5xl xl:text-6xl font-black text-white mb-1">10K+</div>
+                  <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">10K+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#f46c38] font-bold leading-tight">
                     Users Reached <br />
-                    <span className="text-gray-500 font-mono text-[8px] normal-case tracking-normal">via event platform</span>
+                    <span className="text-[var(--text-muted)] font-mono text-[8px] normal-case tracking-normal">via event platform</span>
                   </div>
                 </div>
               </div>
@@ -270,7 +270,7 @@ const Home: React.FC = () => {
                 <a
                   href="/resume.pdf"
                   download
-                  className="w-full sm:w-auto px-8 py-5 bg-white hover:bg-neutral-100 text-black rounded-2xl font-extrabold uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 shadow-2xl transition-all hover:-translate-y-0.5 active:scale-95 group cursor-pointer border border-neutral-200"
+                  className="w-full sm:w-auto px-8 py-5 bg-[var(--download-btn-bg)] hover:opacity-90 text-[var(--download-btn-text)] rounded-2xl font-extrabold uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 shadow-2xl transition-all hover:-translate-y-0.5 active:scale-95 group cursor-pointer border border-[var(--download-btn-border)]"
                   title="Download Resume"
                 >
                   <span className="material-symbols-outlined text-lg text-[#f46c38] group-hover:scale-110 transition-transform duration-300">download</span>
@@ -284,7 +284,7 @@ const Home: React.FC = () => {
                     href="https://github.com/Mithunp123/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-300 hover:bg-white/10"
+                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
                     title="GitHub"
                   >
                     <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -296,7 +296,7 @@ const Home: React.FC = () => {
                     href="https://linkedin.com/in/mithun-p-0100782a2" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-[#0077b5] flex items-center justify-center transition-all duration-300 hover:bg-white/10"
+                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#0077b5] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
                     title="LinkedIn"
                   >
                     <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -308,7 +308,7 @@ const Home: React.FC = () => {
                     href="https://wa.me/919443207221" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-[#25d366] flex items-center justify-center transition-all duration-300 hover:bg-white/10"
+                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#25d366] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
                     title="WhatsApp"
                   >
                     <LottieLoader 
@@ -408,10 +408,10 @@ const Home: React.FC = () => {
               href={project.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-4 sm:gap-6"
+              className="flex items-center group py-6 border-b border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors w-full gap-4 sm:gap-6"
             >
               {/* Left Rounded Image */}
-              <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
+              <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-[var(--border-subtle)] bg-[var(--tooltip-bg)] relative">
                 <img 
                   src={project.image} 
                   alt={project.title} 
@@ -420,8 +420,8 @@ const Home: React.FC = () => {
               </div>
               {/* Center Title & Description */}
               <div className="flex-grow">
-                <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-[#f46c38] transition-colors leading-tight mb-1">{project.title}</h3>
-                <p className="text-gray-400 text-xs sm:text-sm font-semibold">{project.category}</p>
+                <h3 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-tight mb-1">{project.title}</h3>
+                <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-semibold">{project.category}</p>
               </div>
               {/* Right Orange Diagonal Arrow */}
               <div className="text-[#f46c38] shrink-0 mr-2 transition-transform duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1">
@@ -459,7 +459,7 @@ const Home: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-black uppercase leading-none tracking-tighter mb-4">
             My Journey
           </h2>
-          <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto font-body-md leading-relaxed">
+          <p className="text-[var(--text-secondary)] text-sm md:text-base max-w-2xl mx-auto font-body-md leading-relaxed">
             A temporal mapping of engineering milestones, product launches, and the pursuit of artificial intelligence.
           </p>
         </div>
@@ -477,7 +477,7 @@ const Home: React.FC = () => {
                   className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-start lg:items-center justify-between gap-8 lg:gap-0 relative`}
                 >
                   {/* Timeline Center Dot */}
-                  <div className="absolute left-[25px] lg:left-1/2 lg:-translate-x-1/2 top-6 lg:top-auto w-4 h-4 rounded-full border-4 border-[#0c0c0c] bg-white ring-4 ring-[#f46c38]/30"></div>
+                  <div className="absolute left-[25px] lg:left-1/2 lg:-translate-x-1/2 top-6 lg:top-auto w-4 h-4 rounded-full border-4 border-[var(--journey-dot-border)] bg-[var(--text-primary)] ring-4 ring-[var(--journey-dot-ring)]"></div>
                   
                   {/* Side Label (Desktop only) */}
                   <div className={`hidden lg:block lg:w-[45%] ${isEven ? 'text-right pr-12' : 'text-left pl-12'}`}>
@@ -486,17 +486,17 @@ const Home: React.FC = () => {
                   
                   {/* Card */}
                   <div className={`w-full lg:w-[45%] ${isEven ? 'pl-16 lg:pl-12' : 'pl-16 lg:pr-12'}`}>
-                    <div className="journey-card p-7 rounded-[1.5rem] border border-white/[0.06] bg-[#121212] relative overflow-hidden transition-all duration-300 hover:border-[#f46c38]/30 hover:shadow-2xl hover:shadow-[#f46c38]/5 hover:-translate-y-1 group">
+                    <div className="journey-card p-7 rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-secondary)] relative overflow-hidden transition-all duration-300 hover:border-[var(--accent-glow)] hover:shadow-2xl hover:shadow-[#f46c38]/5 hover:-translate-y-1 group">
                       {/* Subtle glow on hover */}
                       <div className="absolute inset-0 bg-gradient-to-br from-[#f46c38]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                       
                       <div className="relative z-10">
                         <div className="flex justify-between items-start mb-4">
-                          <span className="text-3xl font-black text-white/10 font-mono">{entry.year}</span>
-                          <span className="text-[9px] font-bold tracking-widest text-white uppercase font-mono border border-[#f46c38] bg-[#f46c38]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
+                          <span className="text-3xl font-black text-[var(--text-primary)] opacity-10 font-mono">{entry.year}</span>
+                          <span className="text-[9px] font-bold tracking-widest text-[var(--text-primary)] uppercase font-mono border border-[#f46c38] bg-[#f46c38]/5 px-3 py-1 rounded-full shrink-0">{entry.badge}</span>
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-3 leading-snug">{entry.title}</h3>
-                        <p className="text-gray-400 text-[13px] leading-relaxed font-body-md line-clamp-3">
+                        <h3 className="text-lg font-bold text-[var(--text-primary)] mb-3 leading-snug">{entry.title}</h3>
+                        <p className="text-[var(--text-secondary)] text-[13px] leading-relaxed font-body-md line-clamp-3">
                           {entry.description}
                         </p>
                       </div>
@@ -540,8 +540,8 @@ const Home: React.FC = () => {
               Gradix Technologies
             </div>
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
-                Web Developer <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Intern)</span>
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+                Web Developer <span className="text-[var(--text-muted)] font-semibold lowercase text-base sm:text-lg">(Intern)</span>
               </h3>
               <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
                 Mar 2026 – Present
@@ -555,8 +555,8 @@ const Home: React.FC = () => {
               Dakshaa T26 Symposium
             </div>
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
-                Backend Developer <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Product Development)</span>
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+                Backend Developer <span className="text-[var(--text-muted)] font-semibold lowercase text-base sm:text-lg">(Product Development)</span>
               </h3>
               <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
                 2025 – 2026
@@ -565,15 +565,15 @@ const Home: React.FC = () => {
           </div>
 
           {/* Google */}
-          <div className="group py-6 border-b border-white/[0.04] transition-all duration-300">
-            <div className="text-xs uppercase tracking-[0.15em] text-[#8a8a8a] font-bold mb-1">
+          <div className="group py-6 border-b border-[var(--border-subtle)] transition-all duration-300">
+            <div className="text-xs uppercase tracking-[0.15em] text-[var(--text-muted)] font-bold mb-1">
               Google
             </div>
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
-                AI &amp; Machine Learning Intern <span className="text-neutral-500 font-semibold lowercase text-base sm:text-lg">(Internship)</span>
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[var(--accent-color)] transition-colors leading-none m-0">
+                AI &amp; Machine Learning Intern <span className="text-[var(--text-muted)] font-semibold lowercase text-base sm:text-lg">(Internship)</span>
               </h3>
-              <span className="text-xs font-mono text-[#5a5a5a] shrink-0 select-none">
+              <span className="text-xs font-mono text-[var(--text-dim)] shrink-0 select-none">
                 Apr – Jun 2025
               </span>
             </div>
@@ -607,13 +607,13 @@ const Home: React.FC = () => {
                 <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mb-4 font-body-md">
                   Presented advanced deepfake detection systems and forensic analytics to the Namakkal Police Cybercrime unit to prevent media manipulation.
                 </p>
-                <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">
+                <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">
                   <span>Presented in 2024</span>
                   <span className="w-1 h-1 bg-[#f46c38] rounded-full"></span>
                   <span>Cybercrime Forensics</span>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-gray-600 group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
+              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
                 north_east
               </span>
             </article>
@@ -628,13 +628,13 @@ const Home: React.FC = () => {
                 <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mb-4 font-body-md">
                   Interactive business intelligence dashboards bridging raw data with actionable insights for decision-making.
                 </p>
-                <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">
+                <div className="flex items-center space-x-4 text-[9px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">
                   <span>Published 2025</span>
                   <span className="w-1 h-1 bg-[#f46c38] rounded-full"></span>
                   <span>Data Visualization</span>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-gray-600 group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
+              <span className="material-symbols-outlined text-[var(--text-dim)] group-hover:text-[#f46c38] transition-all transform group-hover:rotate-45 text-xl shrink-0 mt-1">
                 north_east
               </span>
             </article>
@@ -647,10 +647,10 @@ const Home: React.FC = () => {
 
       {/* Hobbies Section */}
       <section id="hobbies">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group py-8 border-b border-white/[0.04] transition-all duration-300">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-start group py-8 border-b border-[var(--border-subtle)] transition-all duration-300">
           {/* Left Column */}
           <div className="lg:col-span-3">
-            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[#5a5a5a] group-hover:text-white transition-colors select-none">
+            <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-[2.2rem] uppercase tracking-tighter text-[var(--text-subtle)] group-hover:text-[var(--text-primary)] transition-colors select-none">
               Hobbies
             </h3>
           </div>
@@ -672,7 +672,7 @@ const Home: React.FC = () => {
                 <span className="text-2xl select-none" role="img" aria-label={hobby.label}>
                   {hobby.icon}
                 </span>
-                <span className="text-gray-300 group-hover/hobby:text-white font-bold text-base transition-colors duration-200">
+                <span className="text-[var(--text-tertiary)] group-hover/hobby:text-[var(--text-primary)] font-bold text-base transition-colors duration-200">
                   {hobby.label}
                 </span>
               </div>
@@ -695,23 +695,23 @@ const Home: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Your Name</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Your Name</label>
                 <input 
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="Enter name" 
                   type="text" 
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Email Address</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Email Address</label>
                 <input 
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="name@domain.com" 
                   type="email" 
                 />
@@ -719,11 +719,11 @@ const Home: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Project Scope</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Project Scope</label>
               <select 
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                className="w-full bg-[#151312] border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white cursor-pointer transition-all font-body-md"
+                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
               >
                 <option value="Select range...">Select range...</option>
                 <option value="Freelance Consultation">Freelance Consultation</option>
@@ -733,12 +733,12 @@ const Home: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Message</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Message</label>
               <textarea 
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 resize-none transition-all font-body-md" 
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
                 placeholder="Describe your project goals..." 
                 rows={5}
               />
@@ -755,11 +755,11 @@ const Home: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
+      <footer className="pt-8 border-t border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-center text-[var(--text-dim)] text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
         <p>© 2026 Mithun P. Crafted with React &amp; Tailwind CSS</p>
         <div className="flex space-x-8">
-          <a className="hover:text-white transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a className="hover:text-white transition-colors" href="https://linkedin.com/in/mithun-p2006/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://linkedin.com/in/mithun-p2006/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </footer>
     </div>

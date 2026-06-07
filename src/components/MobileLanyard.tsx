@@ -95,7 +95,7 @@ const MobileLanyard: React.FC = () => {
           scale: scaleSpring,
           transformStyle: 'preserve-3d',
         }}
-        className="w-[280px] h-[440px] rounded-[1.8rem] border border-white/10 relative overflow-hidden shadow-2xl bg-[#0e0e0f]/90 backdrop-blur-2xl transition-shadow duration-300 hover:shadow-[#f46c38]/10 cursor-grab active:cursor-grabbing select-none mt-14 z-10"
+        className="w-[240px] h-[380px] mt-8 min-[375px]:w-[280px] min-[375px]:h-[440px] min-[375px]:mt-14 rounded-[1.8rem] border border-[var(--border-medium)] relative overflow-hidden shadow-2xl bg-[#0e0e0f]/90 backdrop-blur-2xl transition-shadow duration-300 hover:shadow-[#f46c38]/10 cursor-grab active:cursor-grabbing select-none z-10"
       >
         {/* Card Background: Cropped Mithun.png */}
         <div 
@@ -143,7 +143,7 @@ const MobileLanyard: React.FC = () => {
           className="absolute bottom-6 left-3.5 right-3.5 z-20 pointer-events-none font-mono"
         >
           {/* Rich Glassmorphic Plate */}
-          <div className="w-full bg-[#0c0c0e]/92 border border-white/12 rounded-xl py-2 px-2.5 flex justify-between items-center shadow-xl">
+          <div className="w-full bg-[#0c0c0e]/92 border border-[var(--border-medium)] rounded-xl py-2 px-2.5 flex justify-between items-center shadow-xl">
             {/* Left side text: @ SOFTWARE ENGINEER */}
             <div className="flex items-center text-[7.5px] font-extrabold tracking-wide">
               <span className="text-[#f46c38]">@</span>

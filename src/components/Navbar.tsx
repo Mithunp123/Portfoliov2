@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -89,12 +90,12 @@ const Navbar: React.FC = () => {
               id={link.isHome ? "navbar-home-link" : undefined}
               className={({ isActive }) => 
                 `transition-colors flex flex-col items-center p-2 rounded-full hover:scale-110 duration-200 relative group ${
-                  isActive ? 'text-[#f46c38]' : 'text-gray-400 hover:text-white'
+                  isActive ? 'text-[#f46c38]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`
               }
             >
               <span className="material-symbols-outlined text-[22px]">{link.icon}</span>
-              <div className="absolute top-12 bg-neutral-900 border border-white/10 text-white text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
+              <div className="absolute top-12 bg-[var(--tooltip-bg)] border border-[var(--tooltip-border)] text-[var(--text-primary)] text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
                 {link.label}
               </div>
             </NavLink>
@@ -109,18 +110,21 @@ const Navbar: React.FC = () => {
             className="style-module-scss-module__Ooia0G__availability flex items-center gap-2 border px-3.5 py-2.5 rounded-full font-mono text-[8px] sm:text-[9.5px] uppercase tracking-widest font-bold shadow-md select-none transition-all duration-300 hover:brightness-105" 
             style={{ borderColor: '#219653', backgroundColor: 'rgba(33, 150, 83, 0.15)' }}
           >
-            <div className="style-module-scss-module__Ooia0G__text text-white hidden sm:block">available now for work</div>
-            <div className="style-module-scss-module__Ooia0G__text text-white block sm:hidden">available</div>
+            <div className="style-module-scss-module__Ooia0G__text text-[var(--text-primary)] hidden sm:block">available now for work</div>
+            <div className="style-module-scss-module__Ooia0G__text text-[var(--text-primary)] block sm:hidden">available</div>
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className="w-2.5 h-2.5 sm:w-3 h-3 flex items-center justify-center shrink-0">
               <circle cx="6" cy="6" r="4.5" fill="#219653" className="animate-pulse"></circle>
             </svg>
           </div>
 
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
           {/* Music Sound Toggle controller */}
           <span 
             {...{ beforecolor: "#F0F1FA" } as any}
             data-replace={isPlaying ? "Sound | OFF" : "Sound | ON"} 
-            className="sc-gJhJfT cTLsyx cursor-pointer select-none font-mono text-[10px] sm:text-[11px] font-semibold tracking-widest text-white hover:text-[#219653] transition-colors duration-300 py-2.5 px-1 shrink-0"
+            className="sc-gJhJfT cTLsyx cursor-pointer select-none font-mono text-[10px] sm:text-[11px] font-semibold tracking-widest text-[var(--text-primary)] hover:text-[#219653] transition-colors duration-300 py-2.5 px-1 shrink-0"
             onClick={toggleSound}
             title={isPlaying ? "Mute Background Music" : "Unmute Background Music"}
           >
@@ -139,12 +143,12 @@ const Navbar: React.FC = () => {
             to={link.to} 
             className={({ isActive }) => 
               `transition-colors flex-grow flex flex-col items-center p-2 rounded-full hover:scale-115 duration-200 relative group ${
-                isActive ? 'text-[#f46c38]' : 'text-gray-400 hover:text-white'
+                isActive ? 'text-[#f46c38]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`
             }
           >
             <span className="material-symbols-outlined text-[20px] sm:text-[22px]">{link.icon}</span>
-            <div className="absolute bottom-12 bg-neutral-900 border border-white/10 text-white text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
+            <div className="absolute bottom-12 bg-[var(--tooltip-bg)] border border-[var(--tooltip-border)] text-[var(--text-primary)] text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
               {link.label}
             </div>
           </NavLink>

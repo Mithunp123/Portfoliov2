@@ -61,7 +61,7 @@ const Experience: React.FC = () => {
         {experiences.map((exp, idx) => (
           <div 
             key={idx} 
-            className="group py-8 border-b border-white/[0.04] transition-all duration-300"
+            className="group py-8 border-b border-[var(--border-subtle)] transition-all duration-300"
           >
             {/* Company Name */}
             <div className="flex items-center gap-3 mb-1">
@@ -69,7 +69,7 @@ const Experience: React.FC = () => {
                 href={exp.companyUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-xs uppercase tracking-[0.15em] text-[#8a8a8a] hover:text-white transition-colors font-bold flex items-center gap-1"
+                className="text-xs uppercase tracking-[0.15em] text-[var(--text-brand-gray)] hover:text-[var(--text-primary)] transition-colors font-bold flex items-center gap-1"
               >
                 {exp.company}
                 <span className="material-symbols-outlined text-[10px] transform group-hover:translate-x-[2px] transition-transform">north_east</span>
@@ -77,19 +77,19 @@ const Experience: React.FC = () => {
             </div>
 
             {/* Job Title / Role */}
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-white group-hover:text-[#f46c38] transition-colors leading-none m-0">
-              {exp.role} <span className="text-neutral-500 font-semibold lowercase text-xl sm:text-2xl">({exp.type})</span>
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-none m-0">
+              {exp.role} <span className="text-[var(--text-muted)] font-semibold lowercase text-xl sm:text-2xl">({exp.type})</span>
             </h3>
 
             {/* Duration Period */}
-            <div className="text-sm font-mono text-[#5a5a5a] group-hover:text-neutral-400 transition-colors mt-2 select-none">
+            <div className="text-sm font-mono text-[var(--text-subtle)] group-hover:text-neutral-400 transition-colors mt-2 select-none">
               {exp.period}
             </div>
 
             {/* Bullet Points */}
-            <ul className="list-disc pl-5 space-y-3 mt-6 text-[#a1a1a1] text-sm sm:text-base leading-relaxed max-w-4xl font-body-md font-medium">
+            <ul className="list-disc pl-5 space-y-3 mt-6 text-[var(--text-secondary)] text-sm sm:text-base leading-relaxed max-w-4xl font-body-md font-medium">
               {exp.bullets.map((bullet, bIdx) => (
-                <li key={bIdx} className="hover:text-white transition-colors duration-200">
+                <li key={bIdx} className="hover:text-[var(--text-primary)] transition-colors duration-200">
                   {bullet}
                 </li>
               ))}

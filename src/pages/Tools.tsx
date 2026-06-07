@@ -46,23 +46,23 @@ const Tools: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Your Name</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Your Name</label>
                 <input 
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="Enter name" 
                   type="text" 
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Email Address</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Email Address</label>
                 <input 
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="name@domain.com" 
                   type="email" 
                 />
@@ -70,11 +70,11 @@ const Tools: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Project Scope</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Project Scope</label>
               <select 
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                className="w-full bg-[#151312] border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white cursor-pointer transition-all font-body-md"
+                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
               >
                 <option value="Select range...">Select range...</option>
                 <option value="Freelance Consultation">Freelance Consultation</option>
@@ -84,12 +84,12 @@ const Tools: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Message</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Message</label>
               <textarea 
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 resize-none transition-all font-body-md" 
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
                 placeholder="Describe your project goals..." 
                 rows={5}
               />
@@ -106,11 +106,11 @@ const Tools: React.FC = () => {
       </section>
 
       {/* Footer Credits */}
-      <footer className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
+      <footer className="pt-8 border-t border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-center text-[var(--text-dim)] text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
         <p>© 2026 Mithun P. Crafted with React &amp; Tailwind CSS</p>
         <div className="flex space-x-8">
-          <a className="hover:text-white transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a className="hover:text-white transition-colors" href="https://linkedin.com/in/mithun-p-0100782a2" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://linkedin.com/in/mithun-p-0100782a2" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </footer>
     </div>

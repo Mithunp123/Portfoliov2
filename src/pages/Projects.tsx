@@ -114,10 +114,10 @@ const Projects: React.FC = () => {
                 href={project.liveUrl}
                 target={project.liveUrl ? "_blank" : undefined}
                 rel={project.liveUrl ? "noopener noreferrer" : undefined}
-                className="flex items-center group py-6 border-b border-white/5 hover:border-white/10 transition-colors w-full gap-4 sm:gap-6 cursor-pointer"
+                className="flex items-center group py-6 border-b border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors w-full gap-4 sm:gap-6 cursor-pointer"
               >
                 {/* Left Rounded Image */}
-                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-white/5 bg-neutral-900 relative">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-[1.25rem] sm:rounded-3xl overflow-hidden shrink-0 border border-[var(--border-subtle)] bg-[var(--bg-input-solid)] relative">
                   <img 
                     src={project.image} 
                     alt={project.title} 
@@ -126,8 +126,8 @@ const Projects: React.FC = () => {
                 </div>
                 {/* Center Title & Description */}
                 <div className="flex-grow">
-                  <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-[#f46c38] transition-colors leading-tight mb-1">{project.title}</h3>
-                  <p className="text-gray-400 text-xs sm:text-sm font-semibold">{project.category}</p>
+                  <h3 className="text-xl sm:text-2xl font-black text-[var(--text-primary)] group-hover:text-[#f46c38] transition-colors leading-tight mb-1">{project.title}</h3>
+                  <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-semibold">{project.category}</p>
                 </div>
                 {/* Right Orange Diagonal Arrow */}
                 <div className="text-[#f46c38] shrink-0 mr-2 transition-transform duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1">
@@ -154,23 +154,23 @@ const Projects: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Your Name</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Your Name</label>
                 <input 
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="Enter name" 
                   type="text" 
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Email Address</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Email Address</label>
                 <input 
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 transition-all font-body-md" 
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] transition-all font-body-md" 
                   placeholder="name@domain.com" 
                   type="email" 
                 />
@@ -178,11 +178,11 @@ const Projects: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Project Scope</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Project Scope</label>
               <select 
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
-                className="w-full bg-[#151312] border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white cursor-pointer transition-all font-body-md"
+                className="w-full bg-[var(--bg-input-solid)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] cursor-pointer transition-all font-body-md"
               >
                 <option value="Select range...">Select range...</option>
                 <option value="Freelance Consultation">Freelance Consultation</option>
@@ -192,12 +192,12 @@ const Projects: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Message</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] font-bold">Message</label>
               <textarea 
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[#1d1b1a]/50 border border-white/10 rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-white placeholder-gray-600 resize-none transition-all font-body-md" 
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-medium)] rounded-2xl p-4 focus:ring-1 focus:ring-[#f46c38] focus:border-[#f46c38] outline-none text-[var(--text-primary)] placeholder-[var(--text-dim)] resize-none transition-all font-body-md" 
                 placeholder="Describe your project goals..." 
                 rows={5}
               />
@@ -214,11 +214,11 @@ const Projects: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
+      <footer className="pt-8 border-t border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-center text-[var(--text-dim)] text-[10px] font-bold uppercase tracking-[0.2em] gap-4">
         <p>© 2026 Mithun P. Crafted with React &amp; Tailwind CSS</p>
         <div className="flex space-x-8">
-          <a className="hover:text-white transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a className="hover:text-white transition-colors" href="https://linkedin.com/in/mithun-p-0100782a2" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://github.com/Mithunp123/" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a className="hover:text-[var(--text-primary)] transition-colors" href="https://linkedin.com/in/mithun-p-0100782a2" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </footer>
     </div>

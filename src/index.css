@@ -38,56 +38,201 @@
   --font-body-lg: 'Inter', sans-serif;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   THEME SYSTEM — CSS Custom Properties
+   ═══════════════════════════════════════════════════════════ */
+
+/* Dark Theme (Default — matches original design) */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-primary: #0c0c0c;
+  --bg-secondary: #121212;
+  --bg-elevated: #1d1b1a;
+  --bg-card: rgba(21, 19, 18, 0.4);
+  --bg-card-hover: rgba(21, 19, 18, 0.6);
+  --bg-input: rgba(29, 27, 26, 0.5);
+  --bg-input-solid: #151312;
+  --bg-black-overlay: rgba(0, 0, 0, 0.2);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1a1;
+  --text-tertiary: #d1d5db;
+  --text-muted: #6b7280;
+  --text-dim: #4b5563;
+  --text-subtle: #5a5a5a;
+  --text-brand-gray: #8a8a8a;
+  --text-heading-outline: transparent;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Navigation */
+  --nav-pill-bg: rgba(21, 19, 18, 0.8);
+  --nav-pill-border: rgba(255, 255, 255, 0.1);
+
+  /* Accent (unchanged across themes) */
+  --accent: #f46c38;
+  --accent-hover: #ff7d4a;
+  --accent-glow: rgba(244, 108, 56, 0.3);
+  --accent-bg-subtle: rgba(244, 108, 56, 0.05);
+
+  /* Scrollbar */
+  --scrollbar-track: #0c0c0c;
+  --scrollbar-thumb: #262626;
+
+  /* Misc */
+  --text-outline-stroke: rgba(255, 255, 255, 0.2);
+  --tooltip-bg: #171717;
+  --tooltip-border: rgba(255, 255, 255, 0.1);
+  --download-btn-bg: #ffffff;
+  --download-btn-text: #000000;
+  --download-btn-border: #e5e5e5;
+  --social-icon-bg: rgba(255, 255, 255, 0.05);
+  --social-icon-border: rgba(255, 255, 255, 0.1);
+  --github-accent: #00ffd0;
+
+  /* White/black utility (for theme-aware white/black references) */
+  --color-white-adaptive: #ffffff;
+  --color-black-adaptive: #000000;
+
+  /* Journey card */
+  --journey-dot-ring: rgba(244, 108, 56, 0.3);
+  --journey-dot-border: #0c0c0c;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-primary: #f5f3f0;
+  --bg-secondary: #ffffff;
+  --bg-elevated: #ece9e4;
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+  --bg-input: rgba(236, 233, 228, 0.6);
+  --bg-input-solid: #ece9e4;
+  --bg-black-overlay: rgba(0, 0, 0, 0.04);
+
+  /* Text */
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-tertiary: #3a3a3a;
+  --text-muted: #777777;
+  --text-dim: #999999;
+  --text-subtle: #888888;
+  --text-brand-gray: #666666;
+  --text-heading-outline: transparent;
+
+  /* Borders */
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.1);
+  --border-strong: rgba(0, 0, 0, 0.15);
+
+  /* Navigation */
+  --nav-pill-bg: rgba(255, 255, 255, 0.85);
+  --nav-pill-border: rgba(0, 0, 0, 0.1);
+
+  /* Accent (unchanged) */
+  --accent: #f46c38;
+  --accent-hover: #e55d2a;
+  --accent-glow: rgba(244, 108, 56, 0.2);
+  --accent-bg-subtle: rgba(244, 108, 56, 0.06);
+
+  /* Scrollbar */
+  --scrollbar-track: #f5f3f0;
+  --scrollbar-thumb: #d4d0cc;
+
+  /* Misc */
+  --text-outline-stroke: rgba(0, 0, 0, 0.1);
+  --tooltip-bg: #1a1a1a;
+  --tooltip-border: rgba(255, 255, 255, 0.1);
+  --download-btn-bg: #1a1a1a;
+  --download-btn-text: #ffffff;
+  --download-btn-border: #333333;
+  --social-icon-bg: rgba(0, 0, 0, 0.04);
+  --social-icon-border: rgba(0, 0, 0, 0.08);
+  --github-accent: #059669;
+
+  /* White/black utility */
+  --color-white-adaptive: #1a1a1a;
+  --color-black-adaptive: #ffffff;
+
+  /* Journey card */
+  --journey-dot-ring: rgba(244, 108, 56, 0.25);
+  --journey-dot-border: #f5f3f0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SMOOTH THEME TRANSITIONS
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Exclude elements where transitions cause visual glitches */
+canvas, video, iframe, img,
+[data-no-transition],
+.lanyard-wrapper *,
+.animated-gradient-text *,
+.text-content {
+  transition: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════ */
 body {
-  background-color: #0c0c0c;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Custom scrollbar for dark theme */
+/* Custom scrollbar for themed scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0c0c0c;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f46c38;
+  background: var(--accent);
 }
 
 /* Selection Highlight */
 ::selection {
-  background: #f46c38;
+  background: var(--accent);
   color: white;
 }
 
 /* Outlined text effect for large headers */
 .text-outline {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  -webkit-text-stroke: 1px var(--text-outline-stroke);
   color: transparent;
 }
 
 /* Premium layout helper classes */
 .glass-card {
-  background: rgba(21, 19, 18, 0.4);
+  background: var(--bg-card);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
   transition: all 0.3s ease;
 }
 .glass-card:hover {
-  border-color: rgba(244, 108, 56, 0.3);
-  background: rgba(21, 19, 18, 0.6);
+  border-color: var(--accent-glow);
+  background: var(--bg-card-hover);
 }
 
 .nav-pill {
-  background: rgba(21, 19, 18, 0.8);
+  background: var(--nav-pill-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--nav-pill-border);
 }
 
 /* Radial dot grid patterns (dotted arcs) */
