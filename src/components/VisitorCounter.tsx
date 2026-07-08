@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ref, onValue, set, get, increment } from 'firebase/database';
+import { ref, onValue, set, get } from 'firebase/database';
 import { database } from '../firebase/config';
 
 const VisitorCounter: React.FC = () => {
