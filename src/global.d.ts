@@ -9,6 +9,10 @@ declare module 'meshline' {
 }
 
 declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+    dataLayer: any[];
+  }
   namespace JSX {
     interface IntrinsicElements {
       meshLineGeometry: any;

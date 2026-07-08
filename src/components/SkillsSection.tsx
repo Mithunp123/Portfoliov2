@@ -36,18 +36,6 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
         },
         {
-          name: 'Next.js',
-          iconSvg: (
-            <svg viewBox="0 0 180 180" className="w-5 h-5 fill-current text-[var(--text-primary)] shrink-0">
-              <path d="M90 0a90 90 0 1090 90A90 90 0 0090 0zm37.5 138.8L93 84v42.8H81.8V60h11.2l33.8 53.6V60h11.2v78.8zm-26.6-42l-5.3-8.2-11.8 19 17.1-10.8z"/>
-            </svg>
-          )
-        },
-        {
-          name: 'Redux',
-          iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg'
-        },
-        {
           name: 'Tailwind CSS',
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg'
         },
@@ -59,24 +47,6 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
               <path d="M12.5 5.5l-6 7.5h5v5.5l6-7.5h-5z"/>
             </svg>
           )
-        },
-        {
-          name: 'Framer Motion',
-          iconSvg: (
-            <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-current shrink-0">
-              <path d="M12 0L24 12H12L0 24V12H12L24 0z" fill="url(#framer-grad)"/>
-              <defs>
-                <linearGradient id="framer-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ff007f" />
-                  <stop offset="100%" stopColor="#7f00ff" />
-                </linearGradient>
-              </defs>
-            </svg>
-          )
-        },
-        {
-          name: 'Sass',
-          iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg'
         },
         {
           name: 'Bootstrap',
@@ -95,14 +65,6 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
         {
           name: 'Node.js',
           iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
-        },
-        {
-          name: 'NestJS',
-          iconSvg: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-[#ea2845] shrink-0">
-              <path d="M12.062.01L1.22 3.17c-.48.14-.82.58-.82 1.08v9.98c0 5.48 4.24 10.3 11.23 11.23.23.03.47.03.7 0 6.99-.93 11.23-5.75 11.23-11.23V4.25c0-.5-.34-.94-.82-1.08L12.062.01zm4.18 16.59l-4.18-2.61-4.18 2.61 1.08-4.83-3.69-3.21 4.95-.41 1.84-4.59 1.84 4.59 4.95.41-3.69 3.21 1.08 4.83z"/>
-            </svg>
-          )
         },
         {
           name: 'Express.js',
@@ -258,22 +220,6 @@ const SkillsSection: React.FC<{ previewOnly?: boolean }> = ({ previewOnly = fals
                   <stop offset="100%" stopColor="#285AEB" />
                 </linearGradient>
               </defs>
-            </svg>
-          )
-        },
-        {
-          name: 'Gemini API',
-          iconSvg: (
-            <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current text-cyan-300 shrink-0">
-              <path d="M12 22C12 22 13 18 16 16C19 13 22 12 22 12C22 12 19 11 16 9C13 6 12 2 12 2C12 2 11 6 9 9C6 11 2 12 2 12C2 12 6 13 9 16C11 18 12 22 12 22Z" />
-            </svg>
-          )
-        },
-        {
-          name: 'GPT API',
-          iconSvg: (
-            <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current text-emerald-400 shrink-0">
-              <path d="M21.3,10.3c0.1-0.5,0.1-1.1-0.1-1.6c-0.2-0.5-0.5-0.9-0.9-1.2c-0.5-0.4-1-0.6-1.6-0.6c-0.3,0-0.6,0.1-0.9,0.2 C17.3,6.3,16.5,5.9,15.7,5.8c-0.8-0.1-1.6,0-2.3,0.4c-0.3-0.5-0.8-0.9-1.3-1.1c-0.5-0.2-1.1-0.3-1.7-0.1c-0.6,0.1-1.1,0.4-1.5,0.8 C8.5,6.1,8.3,6.6,8.2,7.1c-0.8,0-1.6,0.3-2.2,0.8C5.4,8.4,5,9.2,4.9,10c-0.5,0.2-0.9,0.6-1.2,1c-0.3,0.5-0.4,1.1-0.3,1.7 c0.1,0.6,0.4,1.1,0.8,1.5c0.4,0.3,0.9,0.5,1.5,0.6c0.1,0.8,0.5,1.6,1.1,2.1c0.6,0.5,1.4,0.8,2.2,0.8c0.3,0,0.6-0.1,0.9-0.2 c0.5,0.8,1.3,1.2,2.2,1.3c0.9,0.1,1.7-0.1,2.4-0.6c0.3,0.5,0.8,0.9,1.3,1.1c0.5,0.2,1.1,0.3,1.7,0.1c0.6-0.1,1.1-0.4,1.5-0.8 c0.4-0.4,0.6-0.9,0.7-1.5c0.8,0,1.6-0.3,2.2-0.8c0.6-0.5,1-1.3,1.1-2.1c0.5-0.2,0.9-0.6,1.2-1c0.3-0.5,0.4-1.1,0.3-1.7 C22.1,11.4,21.8,10.8,21.3,10.3z M11.8,20.2c-0.4,0-0.8-0.1-1.1-0.3c0.1,0,0.1-0.1,0.2-0.1l4.4-2.5c0.2-0.1,0.3-0.3,0.3-0.6v-6.2 l1.8,1c0.1,0.1,0.2,0.2,0.2,0.4v5.1C17.6,18.7,15,20.2,11.8,20.2z M6,15.6c-0.2-0.3-0.3-0.7-0.3-1.1c0.1,0,0.1,0.1,0.2,0.1l5.4,3.1 c0.2,0.1,0.4,0.1,0.6,0l1.8-1v-2l-4.4-2.5c-0.2-0.1-0.3-0.3-0.3-0.6V8.9l-1.8,1C7,10.1,6.9,10.2,6.9,10.4V15.6z M5.5,9.2 C5.7,8.8,6.1,8.6,6.5,8.5c0,0.1,0,0.2,0,0.2v6.2c0,0.2,0.1,0.4,0.3,0.5l4.4,2.5L9.4,19c-0.1,0.1-0.2,0.1-0.4,0.1c-0.4-0.1-0.8-0.2-1.1-0.5 C7.1,17.9,6.3,16.5,6,15V9.2H5.5z M12.8,3.8c0.4,0,0.8,0.1,1.1,0.3c-0.1,0-0.1,0.1-0.2,0.1l-4.4,2.5C9.1,6.8,9,7,9,7.3v6.2l-1.8-1 c-0.1-0.1-0.2-0.2-0.2-0.4V7C7,5.3,9.6,3.8,12.8,3.8z M18.5,8.4c0.2,0.3,0.3,0.7,0.3,1.1c-0.1,0-0.1-0.1-0.2-0.1L13.2,6.3 C13,6.2,12.8,6.2,12.6,6.3l-1.8,1v2l4.4,2.5c0.2,0.1,0.3,0.3,0.3,0.6v3.7l1.8-1c0.1-0.1,0.2-0.2,0.2-0.4V8.4H18.5z M18,14.8 c-0.2,0.4-0.6,0.6-1,0.7c0-0.1,0-0.2,0-0.2V9c0-0.2-0.1-0.4-0.3-0.5l-4.4-2.5l1.8-1c0.1-0.1,0.2-0.1,0.4-0.1c0.4,0.1,0.8,0.2,1.1,0.5 c0.8,0.8,1.6,2.2,1.9,3.7V14.8H18z M15.2,12.5l-2.7-1.5l-2.7,1.5v3l2.7,1.5l2.7-1.5V12.5z" />
             </svg>
           )
         },

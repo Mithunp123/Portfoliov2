@@ -2,6 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import LottieLoader from './LottieLoader';
+import Chatbot from './Chatbot';
+import VisitorCounter from './VisitorCounter';
 
 const Layout: React.FC = () => {
   return (
@@ -61,6 +63,23 @@ const Layout: React.FC = () => {
             WhatsApp
           </div>
         </a>
+
+        {/* Download Resume */}
+        <a 
+          href="/resume.pdf" 
+          download
+          className="text-[var(--text-secondary)] hover:text-[#3b82f6] transition-all duration-300 relative group flex items-center justify-center p-2 rounded-full hover:bg-[#3b82f6]/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+        >
+          <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          {/* Tooltip */}
+          <div className="absolute left-14 bg-[var(--tooltip-bg)] border border-[var(--tooltip-border)] text-[var(--text-primary)] text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none shadow-2xl whitespace-nowrap">
+            Resume
+          </div>
+        </a>
       </div>
       
       {/* Centered main container layout */}
@@ -73,6 +92,12 @@ const Layout: React.FC = () => {
           </div>
         </main>
       </div>
+
+      {/* Global Portfolio Chatbot */}
+      <Chatbot />
+      
+      {/* Real-time Visitor Counter */}
+      <VisitorCounter />
     </div>
   );
 };

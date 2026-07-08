@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import Lanyard from '../components/Lanyard';
+
 import LottieLoader from '../components/LottieLoader';
 import GradientText from '../components/GradientText/GradientText';
 import LightRays from '../components/LightRays';
@@ -21,16 +21,16 @@ interface SelectedWork {
 
 const selectedWorks: SelectedWork[] = [
   {
-    title: "Time2Order",
-    category: "Full Stack / Operations",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
-    url: "https://time2orders.com",
-    year: "2024",
-    tech: ["Python", "SQL", "Cashfree API"],
+    title: "AutoRevives",
+    category: "Full Stack / E-Commerce",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
+    url: "https://autorevives.com",
+    year: "2026",
+    tech: ["Python", "Flask", "SQL", "WebSockets"],
     metrics: [
-      { label: "Active Orders", value: "12K+" },
-      { label: "Setup Time", value: "5 Mins" },
-      { label: "Uptime", value: "99.9%" }
+      { label: "Auctions Hosted", value: "1.8K+" },
+      { label: "Bids Placed", value: "35K+" },
+      { label: "Sync Latency", value: "0.1s" }
     ]
   },
   {
@@ -51,7 +51,7 @@ const selectedWorks: SelectedWork[] = [
     category: "AI / Cybercrime Forensics",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     url: "https://github.com/Mithunp123/",
-    year: "2024",
+    year: "2025",
     tech: ["Python", "PyTorch", "Flask", "Deep Learning"],
     metrics: [
       { label: "Model Accuracy", value: "98.4%" },
@@ -60,16 +60,16 @@ const selectedWorks: SelectedWork[] = [
     ]
   },
   {
-    title: "AutoRevives",
-    category: "Full Stack / E-Commerce",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
-    url: "https://autorevives.com",
-    year: "2025",
-    tech: ["Python", "Flask", "SQL", "WebSockets"],
+    title: "Time2Order",
+    category: "SaaS / Food Tech",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+    url: "https://time2orders.com",
+    year: "2024",
+    tech: ["Python", "Flask", "SQL", "Cashfree"],
     metrics: [
-      { label: "Auctions Hosted", value: "1.8K+" },
-      { label: "Bids Placed", value: "35K+" },
-      { label: "Sync Latency", value: "0.1s" }
+      { label: "Orders Processed", value: "12K+" },
+      { label: "Merchants Active", value: "15+" },
+      { label: "Uptime", value: "99.9%" }
     ]
   },
   {
@@ -269,100 +269,41 @@ const Home: React.FC = () => {
     scope: 'Select range...',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState('');
 
-  const lanyardParentRef = useRef<HTMLDivElement | null>(null);
-  const lanyardContainerRef = useRef<HTMLDivElement | null>(null);
-  const [alignmentStyle, setAlignmentStyle] = useState<React.CSSProperties>({});
-
-  useEffect(() => {
-    const alignLanyard = () => {
-      if (window.innerWidth < 1024) {
-        setAlignmentStyle({});
-        return;
-      }
-      
-      const homeLink = document.getElementById('navbar-home-link');
-      const lanyardParent = lanyardParentRef.current;
-      
-      if (!homeLink || !lanyardParent) return;
-      
-      const homeRect = homeLink.getBoundingClientRect();
-      const parentRect = lanyardParent.getBoundingClientRect();
-      
-      // Horizontal center of Home link relative to viewport
-      const homeCenterX = homeRect.left + homeRect.width / 2;
-      // Horizontal center of Lanyard Parent relative to viewport
-      const parentCenterX = parentRect.left + parentRect.width / 2;
-      
-      const translateX = homeCenterX - parentCenterX;
-      
-      // Vertical translation to align top of Lanyard Canvas with Navbar Home icon bottom
-      // Using an increased vertical overlap (28px) to pull the strap higher upwards
-      const translateY = (homeRect.bottom - 28) - parentRect.top;
-      
-      setAlignmentStyle({
-        transform: `translate(${translateX}px, ${translateY}px)`,
-      });
-    };
-
-    // Run initial alignment
-    alignLanyard();
-    
-    // Multiple timeouts to guarantee perfect alignment after fonts, images, and layout finish settling
-    const timer1 = setTimeout(alignLanyard, 100);
-    const timer2 = setTimeout(alignLanyard, 300);
-    const timer3 = setTimeout(alignLanyard, 600);
-    const timer4 = setTimeout(alignLanyard, 1000);
-
-    window.addEventListener('resize', alignLanyard);
-    window.addEventListener('scroll', alignLanyard);
-    
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
-      window.removeEventListener('resize', alignLanyard);
-      window.removeEventListener('scroll', alignLanyard);
-    };
-  }, []);
-
-  const [isDragging, setIsDragging] = useState(false);
-  const [pointerEvents, setPointerEvents] = useState<'auto' | 'none'>('none');
-
-  useEffect(() => {
-    const handlePointerMove = (e: PointerEvent) => {
-      if (isDragging) {
-        setPointerEvents('auto');
-        return;
-      }
-
-      const homeLink = document.getElementById('navbar-home-link');
-      if (!homeLink) return;
-
-      const homeRect = homeLink.getBoundingClientRect();
-      const homeCenterX = homeRect.left + homeRect.width / 2;
-      const cardCenterY = homeRect.bottom + 220;
-
-      const dx = e.clientX - homeCenterX;
-      const dy = e.clientY - cardCenterY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 180) {
-        setPointerEvents('auto');
-      } else {
-        setPointerEvents('none');
-      }
-    };
-
-    window.addEventListener('pointermove', handlePointerMove);
-    return () => window.removeEventListener('pointermove', handlePointerMove);
-  }, [isDragging]);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you ${formData.name}! Your message has been sent successfully to Mithun P.`);
-    setFormData({ name: '', email: '', scope: 'Select range...', message: '' });
+    setIsSubmitting(true);
+    setSubmitResult('');
+
+    const formPayload = new FormData();
+    formPayload.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE');
+    formPayload.append("name", formData.name);
+    formPayload.append("email", formData.email);
+    formPayload.append("scope", formData.scope);
+    formPayload.append("message", formData.message);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formPayload,
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setSubmitResult('Form Submitted Successfully!');
+        setFormData({ name: '', email: '', scope: 'Select range...', message: '' });
+      } else {
+        setSubmitResult(data.message || 'Something went wrong.');
+      }
+    } catch (error) {
+      setSubmitResult('Error submitting form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+      // Clear success/error message after 5 seconds
+      setTimeout(() => setSubmitResult(''), 5000);
+    }
   };
 
   return (
@@ -385,30 +326,9 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section data-purpose="hero" className="pt-4 lg:pt-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start mb-20">
-          {/* Lanyard Visual Container - Rendered on desktop only */}
-          <div className="hidden lg:flex lg:w-[550px] order-2 lg:order-1 items-center justify-center shrink-0 relative z-30">
-            {/* Desktop 3D Canvas Lanyard */}
-            <div 
-              ref={lanyardParentRef}
-              className="w-full h-[680px] relative items-center justify-center"
-            >
-              <div 
-                ref={lanyardContainerRef} 
-                className="absolute w-[2000px] h-[850px] left-[calc(50%-1000px)] top-0 flex items-center justify-center transition-transform duration-100 ease-out"
-                style={{ ...alignmentStyle, pointerEvents }}
-              >
-                <Lanyard 
-                  position={[0, 0, 15]} 
-                  fov={22} 
-                  gravity={[0, -40, 0]} 
-                  onDragStateChange={setIsDragging}
-                />
-              </div>
-            </div>
-          </div>
 
           {/* Software Engineer Identity Content - Rendered 1st on mobile, 2nd on desktop */}
-          <div className="flex-1 w-full flex flex-col justify-between min-h-0 lg:min-h-[750px] order-1 lg:order-2">
+          <div className="flex-1 w-full flex flex-col justify-between min-h-0 order-1 lg:order-2">
             <div>
               <div className="mb-8 space-y-4 -ml-6">
                 {/* Mobile-only Welcome Intro with Staggered Mask Reveal Animation */}
@@ -416,7 +336,7 @@ const Home: React.FC = () => {
                   variants={welcomeContainerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="block lg:hidden mb-6 px-6"
+                  className="block mb-6 px-6"
                 >
                   {/* Badge Row (Slide-in) */}
                   <div className="overflow-hidden mb-2">
@@ -476,33 +396,33 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
-              <div className="mb-12 space-y-6">
-                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md text-justify">
-                  I engineer high-impact digital experiences where Artificial Intelligence, Data Science, and Software Architecture converge. As a Full Stack Developer, I specialize in building scalable web applications, intelligent automation systems, and high-performance data platforms that solve real-world operational challenges.
+              <div className="mb-12 space-y-5">
+                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md">
+                  I build at the intersection of <span className="text-[var(--text-primary)] font-semibold">AI, Data Science, and Full Stack Engineering</span> — creating scalable web platforms, intelligent automation systems, and high-performance data solutions that solve real operational challenges.
                 </p>
-                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md text-justify">
-                  From developing AI-powered forensics systems presented to cybercrime units to architecting robust full-stack business ecosystems serving real merchants, I transform ambitious ideas into production-ready products. My approach merges clean, rigorous engineering with modern technologies to deliver systems that are reliable, secure, and built to scale.
+                <p className="text-[var(--text-secondary)] text-base xl:text-lg leading-relaxed font-body-md">
+                  From AI-powered forensics presented to cybercrime units to full-stack SaaS ecosystems serving real merchants — I ship <span className="text-[var(--text-primary)] font-semibold">production-ready products</span> with clean engineering and modern architecture.
                 </p>
               </div>
             </div>
 
-            {/* Stats & Resume Download */}
-            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between w-full gap-8 border-t border-[var(--border-subtle)] pt-8">
+            {/* Stats */}
+            <div className="flex flex-col items-center justify-center w-full gap-8 border-t border-[var(--border-subtle)] pt-10 pb-4">
               {/* Stats Block */}
-              <div className="flex flex-wrap gap-x-10 gap-y-6 sm:gap-x-12 shrink-0">
-                <div>
+              <div className="flex flex-wrap justify-center gap-x-10 gap-y-8 sm:gap-x-12 shrink-0 text-center">
+                <div className="flex flex-col items-center">
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">3+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Years Coding</div>
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">12+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Real Projects</div>
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">4+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold">Clients Served</div>
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <div className="text-5xl xl:text-6xl font-black text-[var(--text-primary)] mb-1">10K+</div>
                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#3b82f6] font-bold leading-tight">
                     Users Reached <br />
@@ -511,60 +431,60 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              {/* Download Resume Button & Mobile Social Links */}
-              <div className="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-4">
-                <a
-                  href="/resume.pdf"
+              {/* Mobile Social Links (visible only on mobile since sidebar is hidden) */}
+              <div className="flex lg:hidden items-center justify-center gap-4">
+                {/* GitHub */}
+                <a 
+                  href="https://github.com/Mithunp123/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
+                  title="GitHub"
+                >
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                  </svg>
+                </a>
+                {/* LinkedIn */}
+                <a 
+                  href="https://linkedin.com/in/mithun-p-0100782a2" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#0077b5] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
+                  title="LinkedIn"
+                >
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+                {/* WhatsApp */}
+                <a 
+                  href="https://wa.me/919443207221" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#25d366] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
+                  title="WhatsApp"
+                >
+                  <LottieLoader 
+                    url="/lottie/Whatsapp.json" 
+                    style={{ width: '28px', height: '28px' }} 
+                    fallbackIcon="chat" 
+                    fallbackColor="text-[#25d366]" 
+                  />
+                </a>
+                {/* Download Resume (mobile) */}
+                <a 
+                  href="/resume.pdf" 
                   download
-                  className="w-full sm:w-auto px-8 py-5 bg-[var(--download-btn-bg)] hover:opacity-90 text-[var(--download-btn-text)] rounded-2xl font-extrabold uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 shadow-2xl transition-all hover:-translate-y-0.5 active:scale-95 group cursor-pointer border border-[var(--download-btn-border)]"
+                  className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#3b82f6] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
                   title="Download Resume"
                 >
-                  <span className="material-symbols-outlined text-lg text-[#3b82f6] group-hover:scale-110 transition-transform duration-300">download</span>
-                  <span>Download Resume</span>
+                  <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                  </svg>
                 </a>
-                
-                {/* Mobile Social Links Row (Hidden on Desktop, Visible on Mobile) */}
-                <div className="flex lg:hidden items-center justify-center gap-4 mt-2 sm:mt-0">
-                  {/* GitHub */}
-                  <a 
-                    href="https://github.com/Mithunp123/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
-                    title="GitHub"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-                    </svg>
-                  </a>
-                  {/* LinkedIn */}
-                  <a 
-                    href="https://linkedin.com/in/mithun-p-0100782a2" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#0077b5] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
-                    title="LinkedIn"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                  </a>
-                  {/* WhatsApp */}
-                  <a 
-                    href="https://wa.me/919443207221" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl border border-[var(--social-icon-border)] bg-[var(--social-icon-bg)] text-[var(--text-secondary)] hover:text-[#25d366] flex items-center justify-center transition-all duration-300 hover:bg-[var(--border-medium)]"
-                    title="WhatsApp"
-                  >
-                    <LottieLoader 
-                      url="/lottie/Whatsapp.json" 
-                      style={{ width: '28px', height: '28px' }} 
-                      fallbackIcon="chat" 
-                      fallbackColor="text-[#25d366]" 
-                    />
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -1177,11 +1097,17 @@ const Home: React.FC = () => {
             </div>
             
             <button 
-              className="w-full bg-[#3b82f6] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#3b82f6]/20" 
+              className="w-full bg-[#3b82f6] text-white font-extrabold py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.3em] text-xs shadow-2xl shadow-[#3b82f6]/20 disabled:opacity-70 disabled:cursor-not-allowed" 
               type="submit"
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
+            {submitResult && (
+              <div className={`text-center text-sm font-bold uppercase tracking-widest mt-4 ${submitResult.includes('Success') ? 'text-emerald-400' : 'text-red-400'}`}>
+                {submitResult}
+              </div>
+            )}
           </form>
         </div>
       </section>
